@@ -1,5 +1,20 @@
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
+import Layout from "./layout/Layout"
 const App = () => {
-    return <div>App</div>
+    return (
+        <Router>
+            <Routes>
+                <Route
+                    path='/'
+                    element={
+                        <Layout>
+                            <p>Home Page</p>
+                        </Layout>
+                    }
+                />
+            </Routes>
+        </Router>
+    )
 }
 
 export default App
