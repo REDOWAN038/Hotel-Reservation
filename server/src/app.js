@@ -4,6 +4,8 @@ const morgan = require("morgan")
 const cookieParser = require("cookie-parser")
 const app = express()
 
+const userRoutes = require("../routes/userRoutes")
+
 
 const { errorResponse } = require("../handler/responseHandler")
 
@@ -21,6 +23,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 // routes
+app.use("/api/v1/users", userRoutes)
 
 app.get("/test", (req, res) => {
     res.status(200).json({
