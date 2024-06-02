@@ -14,7 +14,7 @@ const isLoggedIn = async (req, res, next) => {
             throw createError(401, "invalid token")
         }
 
-        req.user = decoded.user
+        req.user = decoded.user._id
         next()
     } catch (error) {
         return next(error)
