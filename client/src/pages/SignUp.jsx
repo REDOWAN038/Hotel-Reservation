@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form"
 import axios from "axios"
-import { message } from "antd"
 import { useNavigate } from "react-router-dom"
+import { showToast } from "../utils/toast"
 
 const SignUp = () => {
     const {
@@ -26,15 +26,15 @@ const SignUp = () => {
             )
 
             if (res?.data?.success) {
-                message.info(res?.data?.message)
+                showToast(res?.data?.message, "success")
                 navigate("/signin")
             }
         } catch (error) {
             if (error?.response?.status === 409) {
-                message.info(error?.response?.data?.message)
+                showToast(error?.response?.data?.message, "info")
                 navigate("/signin")
             } else {
-                message.error("something went wrong...")
+                showToast("something went wrong...", "error")
             }
         }
     }
