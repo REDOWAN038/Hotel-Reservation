@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form"
 import axios from "axios"
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { showToast } from "../utils/toast"
 
 const SignUp = () => {
@@ -121,14 +121,25 @@ const SignUp = () => {
                     </span>
                 )}
             </label>
-            <span>
-                <button
-                    type='submit'
-                    className='bg-blue-600 text-white p-2 font-bold hover:bg-blue-500 text-xl'
-                >
-                    Create Account
-                </button>
-            </span>
+            <div className='flex flex-col md:flex-row gap-5'>
+                <span className='text-gray-700 text-sm font-bold flex-1'>
+                    Already have an account?
+                    <Link
+                        to='/signin'
+                        className='hover:text-blue-600 underline'
+                    >
+                        Sign In
+                    </Link>
+                </span>
+                <span>
+                    <button
+                        type='submit'
+                        className='bg-blue-600 text-white p-2 font-bold hover:bg-blue-500 text-xl'
+                    >
+                        Create Account
+                    </button>
+                </span>
+            </div>
         </form>
     )
 }
