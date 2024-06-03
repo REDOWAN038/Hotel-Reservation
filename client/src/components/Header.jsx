@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom"
 import { useSelector } from "react-redux"
-import { selectIsAuthenticated } from "../features/auth/selector"
+import { selectIsLoggedIn } from "../features/auth/selector"
 import SignOutButton from "./SignOutButton"
 
 const Header = () => {
-    const isAuthenticated = useSelector(selectIsAuthenticated)
+    const isLoggedIn = useSelector(selectIsLoggedIn)
     return (
         <div className='bg-blue-800 py-6'>
             <div className='container mx-auto flex justify-between'>
@@ -12,7 +12,7 @@ const Header = () => {
                     <Link to='/'>CholoGhurteJai</Link>
                 </span>
                 <span className='flex space-x-2'>
-                    {isAuthenticated ? (
+                    {isLoggedIn ? (
                         <>
                             <Link
                                 className='flex items-center text-white px-3 font-bold hover:bg-blue-600'

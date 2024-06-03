@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import Layout from "./layout/Layout"
 import SignUp from "./pages/SignUp"
+import ProtectedRoute from "./Protection/ProtectedRoute"
 const App = () => {
     return (
         <Router>
@@ -16,9 +17,11 @@ const App = () => {
                 <Route
                     path='/signup'
                     element={
-                        <Layout>
-                            <SignUp />
-                        </Layout>
+                        <ProtectedRoute accessBy='unauthorized'>
+                            <Layout>
+                                <SignUp />
+                            </Layout>
+                        </ProtectedRoute>
                     }
                 />
             </Routes>
