@@ -44,8 +44,70 @@ const validateUserLogin = [
         .withMessage("Pasword is required")
 ]
 
+// validate add hotel
+const validateAddHotel = [
+    body("name")
+        .trim()
+        .notEmpty()
+        .withMessage("Name is required"),
+
+    body("city")
+        .trim()
+        .notEmpty()
+        .withMessage("City is required"),
+
+    body("country")
+        .trim()
+        .notEmpty()
+        .withMessage("Country is required"),
+
+    body("description")
+        .trim()
+        .notEmpty()
+        .withMessage("Description is required"),
+
+    body("type")
+        .trim()
+        .notEmpty()
+        .withMessage("Type is required"),
+
+    body("adultCount")
+        .notEmpty()
+        .withMessage("adultCount is required")
+        .isNumeric()
+        .withMessage("adultCount must be a number"),
+
+    body("childCount")
+        .notEmpty()
+        .withMessage("childCount is required")
+        .isNumeric()
+        .withMessage("childCount must be a number"),
+
+    body("pricePerNight")
+        .notEmpty()
+        .withMessage("pricePerNight is required")
+        .isNumeric()
+        .withMessage("pricePerNight must be a number"),
+
+    body("starRating")
+        .notEmpty()
+        .withMessage("starRating is required")
+        .isNumeric()
+        .withMessage("starRating must be a number")
+        .isLength({
+            min: 1,
+            max: 5
+        })
+        .withMessage("starRating must be between 1 and 5"),
+
+    body("facilities")
+        .notEmpty()
+        .withMessage("facilities is required")
+]
+
 
 module.exports = {
     validateUserRegistration,
-    validateUserLogin
+    validateUserLogin,
+    validateAddHotel
 }

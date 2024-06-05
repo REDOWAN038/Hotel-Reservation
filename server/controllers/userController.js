@@ -7,7 +7,7 @@ const handleUserRegistration = async (req, res, next) => {
     try {
         await userRegister(req.body)
         return successResponse(res, {
-            statusCode: 200,
+            statusCode: 201,
             message: "user registered successfully",
         })
     } catch (error) {
