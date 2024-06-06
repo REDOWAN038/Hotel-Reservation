@@ -3,7 +3,8 @@ import Layout from "./layout/Layout"
 import SignUp from "./pages/SignUp"
 import ProtectedRoute from "./Protection/ProtectedRoute"
 import SignIn from "./pages/SignIn"
-import HotelForm from "./forms/HotelForm/HotelForm"
+import AddHotel from "./pages/AddHotel"
+
 const App = () => {
     return (
         <Router>
@@ -41,7 +42,7 @@ const App = () => {
                     element={
                         <ProtectedRoute accessBy='authorized'>
                             <Layout>
-                                <HotelForm />
+                                <AddHotel />
                             </Layout>
                         </ProtectedRoute>
                     }
