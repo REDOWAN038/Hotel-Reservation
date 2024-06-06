@@ -3,6 +3,7 @@ import DetailsSection from "./DetailsSection"
 import TypeSection from "./TypeSection"
 import FacilitiesSection from "./FacilitiesSection"
 import GuestsSection from "./GuestsSection"
+import ImagesSection from "./ImagesSection"
 
 const HotelForm = () => {
     const formMethods = useForm()
@@ -13,6 +14,7 @@ const HotelForm = () => {
                 <TypeSection />
                 <FacilitiesSection />
                 <GuestsSection />
+                <ImagesSection />
             </form>
         </FormProvider>
     )
