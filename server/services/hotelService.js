@@ -25,6 +25,38 @@ const addHotel = async (newHotel, imageFiles, userId) => {
     }
 }
 
+// get hotels
+const getHotels = async (userId, page, limit) => {
+    try {
+        const user = await userModel.findById(userId)
+
+        if (!user) {
+            throw createError(404, "user does not exist")
+        }
+
+        const hotels = await hotelModel.find({
+            owner: userId
+        })
+            .limit(limit)
+            .skip((page - 1) * limit)
+
+        const totalHotels = await hotelModel.find({ owner: userId }).countDocuments()
+
+        return {
+            hotels,
+            pagination: {
+                totalPages: Math.ceil(totalHotels / limit),
+                currentPage: page,
+                previousPage: page - 1 > 0 ? page - 1 : null,
+                nextPage: page + 1 <= Math.ceil(totalHotels / limit) ? page + 1 : null
+            }
+        }
+    } catch (error) {
+        throw error
+    }
+}
+
 module.exports = {
-    addHotel
+    addHotel,
+    getHotels
 }
