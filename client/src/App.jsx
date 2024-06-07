@@ -38,7 +38,7 @@ const App = () => {
                     }
                 />
                 <Route
-                    path='/my-hotels'
+                    path='/add-hotels'
                     element={
                         <ProtectedRoute accessBy='authorized'>
                             <Layout>
