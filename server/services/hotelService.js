@@ -26,7 +26,7 @@ const addHotel = async (newHotel, imageFiles, userId) => {
 }
 
 // get hotels
-const getHotels = async (userId, page, limit) => {
+const getHotels = async (userId) => {
     try {
         const user = await userModel.findById(userId)
 
@@ -37,20 +37,8 @@ const getHotels = async (userId, page, limit) => {
         const hotels = await hotelModel.find({
             owner: userId
         })
-            .limit(limit)
-            .skip((page - 1) * limit)
 
-        const totalHotels = await hotelModel.find({ owner: userId }).countDocuments()
-
-        return {
-            hotels,
-            pagination: {
-                totalPages: Math.ceil(totalHotels / limit),
-                currentPage: page,
-                previousPage: page - 1 > 0 ? page - 1 : null,
-                nextPage: page + 1 <= Math.ceil(totalHotels / limit) ? page + 1 : null
-            }
-        }
+        return hotels
     } catch (error) {
         throw error
     }

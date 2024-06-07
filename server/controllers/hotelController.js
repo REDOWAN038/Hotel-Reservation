@@ -22,17 +22,12 @@ const handleAddHotel = async (req, res, next) => {
 // get hotels
 const handleGetHotels = async (req, res, next) => {
     try {
-        const page = Number(req.query.page) || 1
-        const limit = Number(req.query.limit) || 5
-
-        const { hotels, pagination } = await getHotels(req.user, page, limit)
-
+        const hotels = await getHotels(req.user)
         return successResponse(res, {
             statusCode: 200,
             message: "hotels returned successfully",
             payload: {
                 hotels,
-                pagination,
             }
         })
     } catch (error) {

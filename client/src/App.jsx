@@ -4,6 +4,7 @@ import SignUp from "./pages/SignUp"
 import ProtectedRoute from "./Protection/ProtectedRoute"
 import SignIn from "./pages/SignIn"
 import AddHotel from "./pages/AddHotel"
+import MyHotels from "./pages/MyHotels"
 
 const App = () => {
     return (
@@ -33,6 +34,16 @@ const App = () => {
                         <ProtectedRoute accessBy='unauthorized'>
                             <Layout>
                                 <SignIn />
+                            </Layout>
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path='/my-hotels'
+                    element={
+                        <ProtectedRoute accessBy='authorized'>
+                            <Layout>
+                                <MyHotels />
                             </Layout>
                         </ProtectedRoute>
                     }
