@@ -4,10 +4,11 @@ import TypeSection from "./TypeSection"
 import FacilitiesSection from "./FacilitiesSection"
 import GuestsSection from "./GuestsSection"
 import ImagesSection from "./ImagesSection"
+import { useEffect } from "react"
 
-const HotelForm = ({ onSave, isLoading, setIsLoading }) => {
+const HotelForm = ({ hotel, onSave, isLoading, setIsLoading }) => {
     const formMethods = useForm()
-    const { handleSubmit } = formMethods
+    const { handleSubmit, reset } = formMethods
 
     const onSubmit = async (hotelData) => {
         try {
@@ -37,6 +38,10 @@ const HotelForm = ({ onSave, isLoading, setIsLoading }) => {
             console.log(error)
         }
     }
+
+    useEffect(() => {
+        reset(hotel)
+    }, [hotel, reset])
 
     return (
         <FormProvider {...formMethods}>

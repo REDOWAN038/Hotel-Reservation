@@ -5,6 +5,7 @@ import ProtectedRoute from "./Protection/ProtectedRoute"
 import SignIn from "./pages/SignIn"
 import AddHotel from "./pages/AddHotel"
 import MyHotels from "./pages/MyHotels"
+import EditHotel from "./pages/EditHotel"
 
 const App = () => {
     return (
@@ -54,6 +55,16 @@ const App = () => {
                         <ProtectedRoute accessBy='authorized'>
                             <Layout>
                                 <AddHotel />
+                            </Layout>
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path='/edit-hotel/:id'
+                    element={
+                        <ProtectedRoute accessBy='authorized'>
+                            <Layout>
+                                <EditHotel />
                             </Layout>
                         </ProtectedRoute>
                     }

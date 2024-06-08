@@ -1,7 +1,7 @@
 const createError = require("http-errors")
 
 const { successResponse } = require("../handler/responseHandler");
-const { addHotel, getHotels } = require("../services/hotelService");
+const { addHotel, getHotels, getSingleHotel } = require("../services/hotelService");
 
 // add hotel
 const handleAddHotel = async (req, res, next) => {
@@ -35,7 +35,24 @@ const handleGetHotels = async (req, res, next) => {
     }
 }
 
+// get single hotel
+const handleGetSingleHotel = async (req, res, next) => {
+    try {
+        const hotel = await getSingleHotel(req.params.id, req.user)
+        return successResponse(res, {
+            statusCode: 200,
+            message: "single hotel returned successfully",
+            payload: {
+                hotel
+            }
+        })
+    } catch (error) {
+        next(error)
+    }
+}
+
 module.exports = {
     handleAddHotel,
-    handleGetHotels
+    handleGetHotels,
+    handleGetSingleHotel
 }

@@ -44,7 +44,21 @@ const getHotels = async (userId) => {
     }
 }
 
+// get single hotel
+const getSingleHotel = async (hotelId, userId) => {
+    try {
+        const hotel = await hotelModel.findOne({
+            _id: hotelId,
+            owner: userId
+        })
+        return hotel
+    } catch (error) {
+        throw error
+    }
+}
+
 module.exports = {
     addHotel,
-    getHotels
+    getHotels,
+    getSingleHotel
 }
