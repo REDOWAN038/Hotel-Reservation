@@ -3,7 +3,7 @@ const { upload } = require("../middlewares/uploadImage")
 const { isLoggedIn } = require("../middlewares/auth")
 const { validateAddHotel } = require("../middlewares/validation")
 const { runValidation } = require("../middlewares")
-const { handleAddHotel, handleGetHotels, handleGetSingleHotel, handleUpdateHotel } = require("../controllers/hotelController")
+const { handleAddHotel, handleGetHotels, handleGetSingleHotel, handleUpdateHotel } = require("../controllers/myHotelController")
 const router = express.Router()
 
 // add hotel

@@ -1,7 +1,5 @@
-const createError = require("http-errors")
-
 const { successResponse } = require("../handler/responseHandler");
-const { addHotel, getHotels, getSingleHotel, updateHotel } = require("../services/hotelService");
+const { addHotel, getHotels, getSingleHotel, updateHotel } = require("../services/myHotelService");
 
 // add hotel
 const handleAddHotel = async (req, res, next) => {

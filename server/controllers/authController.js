@@ -1,5 +1,3 @@
-const createError = require("http-errors")
-
 const { successResponse } = require("../handler/responseHandler")
 const { userLogin } = require("../services/authService")
 const { createJWT } = require("../handler/jwt")
