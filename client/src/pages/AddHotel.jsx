@@ -19,7 +19,7 @@ const AddHotel = () => {
             if (res?.data?.success) {
                 setIsLoading(false)
                 showToast(res?.data?.message, "success")
-                navigate("/")
+                navigate("/my-hotels")
             }
         } catch (error) {
             setIsLoading(false)

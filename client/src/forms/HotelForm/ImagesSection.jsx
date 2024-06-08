@@ -4,10 +4,25 @@ const ImagesSection = () => {
     const {
         register,
         watch,
+        setValue,
         formState: { errors },
     } = useFormContext()
 
     const existingImageUrls = watch("imageUrls")
+
+    const handleDelete = (e, imageUrl) => {
+        e.preventDefault()
+        const isConfirmed = window.confirm(
+            "Are you sure you want to delete this image?"
+        )
+
+        if (isConfirmed) {
+            setValue(
+                "imageUrls",
+                existingImageUrls.filter((url) => url !== imageUrl)
+            )
+        }
+    }
 
     return (
         <div>
@@ -21,7 +36,10 @@ const ImagesSection = () => {
                                     src={url}
                                     className='min-h-full object-cover'
                                 />
-                                <button className='absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 text-white'>
+                                <button
+                                    onClick={(e) => handleDelete(e, url)}
+                                    className='absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 text-white'
+                                >
                                     Delete
                                 </button>
                             </div>
@@ -35,7 +53,9 @@ const ImagesSection = () => {
                     className='w-full text-gray-700 font-normal'
                     {...register("imageFiles", {
                         validate: (imageFiles) => {
-                            const totalLength = imageFiles.length
+                            const totalLength =
+                                imageFiles.length +
+                                (existingImageUrls?.length || 0)
 
                             if (totalLength === 0) {
                                 return "At least one image should be added"

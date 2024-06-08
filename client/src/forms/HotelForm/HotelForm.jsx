@@ -29,6 +29,12 @@ const HotelForm = ({ hotel, onSave, isLoading, setIsLoading }) => {
                 formData.append(`facilities[${index}]`, facility)
             })
 
+            if (hotelData.imageUrls) {
+                hotelData.imageUrls.forEach((url, index) => {
+                    formData.append(`imageUrls[${index}]`, url)
+                })
+            }
+
             Array.from(hotelData.imageFiles).forEach((imageFile) => {
                 formData.append(`imageFiles`, imageFile)
             })

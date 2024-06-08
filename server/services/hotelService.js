@@ -37,6 +37,7 @@ const getHotels = async (userId) => {
         const hotels = await hotelModel.find({
             owner: userId
         })
+            .sort({ updatedAt: -1 })
 
         return hotels
     } catch (error) {
@@ -51,6 +52,36 @@ const getSingleHotel = async (hotelId, userId) => {
             _id: hotelId,
             owner: userId
         })
+
+        if (!hotel) {
+            throw createError(404, "no hotel found")
+        }
+        return hotel
+    } catch (error) {
+        throw error
+    }
+}
+
+// update hotel
+const updateHotel = async (hotelId, updatedHotel, imageFiles, userId) => {
+    try {
+        const hotel = await hotelModel.findOneAndUpdate(
+            {
+                _id: hotelId,
+                owner: userId
+            },
+            updatedHotel,
+            { new: true }
+        )
+
+        if (!hotel) {
+            throw createError(404, "no hotel found")
+        }
+
+        const updatedImageUrls = await uploadToCloudinary(imageFiles, cloudFolder)
+        hotel.imageUrls = ([...updatedImageUrls, ...(updatedHotel.imageUrls || [])])
+
+        await hotel.save()
         return hotel
     } catch (error) {
         throw error
@@ -60,5 +91,6 @@ const getSingleHotel = async (hotelId, userId) => {
 module.exports = {
     addHotel,
     getHotels,
-    getSingleHotel
+    getSingleHotel,
+    updateHotel
 }

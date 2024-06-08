@@ -1,12 +1,14 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { showToast } from "../utils/toast"
 import HotelForm from "../forms/HotelForm/HotelForm"
 
 const EditHotel = () => {
     const { id } = useParams()
     const [hotelData, setHotelData] = useState([])
+    const [isLoading, setIsLoading] = useState(false)
+    const navigate = useNavigate()
 
     const getSingleHotel = async () => {
         try {
@@ -25,6 +27,33 @@ const EditHotel = () => {
         }
     }
 
+    const handleSave = async (formData) => {
+        try {
+            const res = await axios.put(
+                `${import.meta.env.VITE_SERVER_URL}/api/v1/my-hotels/${id}`,
+                formData,
+                { withCredentials: true }
+            )
+
+            if (res?.data?.success) {
+                setIsLoading(false)
+                showToast(res?.data?.message, "success")
+                navigate("/my-hotels")
+            }
+        } catch (error) {
+            setIsLoading(false)
+            if (
+                error?.response?.status === 401 ||
+                error?.response?.status === 404
+            ) {
+                showToast(error?.response?.data?.message, "error")
+                navigate("/signin")
+            } else {
+                showToast("something went wrong...", "error")
+            }
+        }
+    }
+
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -38,7 +67,12 @@ const EditHotel = () => {
     }, [])
     return (
         <>
-            <HotelForm hotel={hotelData} />
+            <HotelForm
+                onSave={handleSave}
+                hotel={hotelData}
+                isLoading={isLoading}
+                setIsLoading={setIsLoading}
+            />
         </>
     )
 }
