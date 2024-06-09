@@ -6,7 +6,7 @@ import SignOutButton from "./SignOutButton"
 const Header = () => {
     const isLoggedIn = useSelector(selectIsLoggedIn)
     return (
-        <div className='bg-blue-800 py-6'>
+        <div className='bg-blue-800 py-6 pb-20'>
             <div className='container mx-auto flex justify-between'>
                 <span className='text-2xl text-white font-bold tracking-tight'>
                     <Link to='/'>CholoGhurteJai</Link>
