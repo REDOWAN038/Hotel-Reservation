@@ -7,6 +7,7 @@ const app = express()
 const userRoutes = require("../routes/userRoutes")
 const authRoutes = require("../routes/authRoutes")
 const myHotelRoutes = require("../routes/myHotelRoutes")
+const hotelRoutes = require("../routes/hotelRoutes")
 
 
 const { errorResponse } = require("../handler/responseHandler")
@@ -28,6 +29,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use("/api/v1/users", userRoutes)
 app.use("/api/v1/auth", authRoutes)
 app.use("/api/v1/my-hotels", myHotelRoutes)
+app.use("/api/v1/hotels", hotelRoutes)
 
 app.get("/test", (req, res) => {
     res.status(200).json({
