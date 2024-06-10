@@ -3,6 +3,7 @@ import { selectAll } from "../features/search/selector"
 import axios from "axios"
 import { useEffect, useState } from "react"
 import SearchHotelsCard from "../components/SearchHotelsCard"
+import Pagination from "../components/Pagination"
 
 const Search = () => {
     const search = useSelector(selectAll)
@@ -45,7 +46,7 @@ const Search = () => {
         }
         fetchData()
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    }, [page])
 
     return (
         <div className='grid grid-cols-1 lg:grid-cols-[250px_1fr] gap-5'>
@@ -66,6 +67,14 @@ const Search = () => {
                 {hotelData?.hotels?.map((hotel, idx) => (
                     <SearchHotelsCard key={idx} hotel={hotel} />
                 ))}
+
+                <div>
+                    <Pagination
+                        currentPage={hotelData?.pagination?.currentPage || 1}
+                        totalPages={hotelData?.pagination?.totalPages || 1}
+                        onPageChange={(page) => setPage(page)}
+                    />
+                </div>
             </div>
         </div>
     )
