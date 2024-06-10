@@ -2,8 +2,8 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
     destination: "",
-    checkIn: new Date(),
-    checkOut: new Date(),
+    checkIn: new Date().toISOString(),
+    checkOut: new Date().toISOString(),
     adultCount: 1,
     childCount: 0,
     hotelId: ""
