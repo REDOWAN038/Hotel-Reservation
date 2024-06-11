@@ -1,20 +1,36 @@
 const createError = require("http-errors")
 
 const hotelModel = require("../models/hotelModel")
+const { constructQuery } = require("../handler/constructQuery")
 
 // get search hotels
-const getSearchHotels = async (page, limit) => {
+const getSearchHotels = async (page, limit, queryParams) => {
     try {
-        const hotels = await hotelModel.find().limit(limit).skip((page - 1) * limit)
-        const totalHotels = await hotelModel.find().countDocuments()
+        const query = constructQuery(queryParams)
+        let sortOptions = {};
+        switch (queryParams.sortOption) {
+            case "starRating":
+                sortOptions = { starRating: -1 };
+                break;
+            case "pricePerNightAsc":
+                sortOptions = { pricePerNight: 1 };
+                break;
+            case "pricePerNightDesc":
+                sortOptions = { pricePerNight: -1 };
+                break;
+        }
+        const hotels = await hotelModel
+            .find(query)
+            .sort(sortOptions)
+            .limit(limit)
+            .skip((page - 1) * limit)
+        const totalHotels = await hotelModel.find(query).countDocuments()
         return {
             hotels,
             pagination: {
                 totalHotels,
                 currentPage: page,
-                totalPages: Math.ceil(totalHotels / limit),
-                // previousPage: page - 1 > 0 ? page - 1 : null,
-                // nextPage: page + 1 <= Math.ceil(totalHotels / limit) ? page + 1 : null
+                totalPages: Math.ceil(totalHotels / limit)
             }
         }
     } catch (error) {
