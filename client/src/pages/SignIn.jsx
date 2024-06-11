@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form"
 import axios from "axios"
-import { Link, useNavigate } from "react-router-dom"
+import { Link, useLocation, useNavigate } from "react-router-dom"
 import { showToast } from "../utils/toast"
 import { useDispatch } from "react-redux"
 import { login } from "../features/auth/authSlice"
@@ -13,6 +13,7 @@ const SignIn = () => {
     } = useForm()
     const navigate = useNavigate()
     const dispatch = useDispatch()
+    const location = useLocation()
 
     const onSubmit = async (data) => {
         try {
@@ -28,7 +29,7 @@ const SignIn = () => {
             if (res?.data?.success) {
                 dispatch(login(res?.data?.payload))
                 showToast(res?.data?.message, "success")
-                navigate("/")
+                navigate(location.state?.from?.pathname || "/")
             }
         } catch (error) {
             if (error?.response?.status === 404) {

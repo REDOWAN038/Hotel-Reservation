@@ -38,6 +38,20 @@ const getSearchHotels = async (page, limit, queryParams) => {
     }
 }
 
+// get single hotel details
+const getHotel = async (id) => {
+    try {
+        const hotel = await hotelModel.findById(id)
+        if (!hotel) {
+            throw createError(404, "no hotel found")
+        }
+        return hotel
+    } catch (error) {
+        throw error
+    }
+}
+
 module.exports = {
-    getSearchHotels
+    getSearchHotels,
+    getHotel
 }

@@ -7,6 +7,7 @@ import AddHotel from "./pages/AddHotel"
 import MyHotels from "./pages/MyHotels"
 import EditHotel from "./pages/EditHotel"
 import Search from "./pages/Search"
+import HotelDetails from "./pages/HotelDetails"
 
 const App = () => {
     return (
@@ -25,6 +26,14 @@ const App = () => {
                     element={
                         <Layout>
                             <Search />
+                        </Layout>
+                    }
+                />
+                <Route
+                    path='/detail/:id'
+                    element={
+                        <Layout>
+                            <HotelDetails />
                         </Layout>
                     }
                 />

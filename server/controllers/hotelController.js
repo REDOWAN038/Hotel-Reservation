@@ -1,5 +1,5 @@
 const { successResponse } = require("../handler/responseHandler");
-const { getSearchHotels } = require("../services/hotelService");
+const { getSearchHotels, getHotel } = require("../services/hotelService");
 
 // get search hotels
 const handleGetSearchHotels = async (req, res, next) => {
@@ -20,6 +20,23 @@ const handleGetSearchHotels = async (req, res, next) => {
     }
 }
 
+// get hotel details
+const handleGetHotel = async (req, res, next) => {
+    try {
+        const hotel = await getHotel(req.params.id)
+        return successResponse(res, {
+            statusCode: 200,
+            message: "single hotel returned successfully",
+            payload: {
+                hotel
+            }
+        })
+    } catch (error) {
+        next(error)
+    }
+}
+
 module.exports = {
-    handleGetSearchHotels
+    handleGetSearchHotels,
+    handleGetHotel
 }

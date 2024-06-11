@@ -49,7 +49,6 @@ const Search = () => {
             )
 
             if (res?.data?.success) {
-                console.log("res ", res?.data?.payload)
                 setHotelData(res?.data?.payload)
             }
         } catch (error) {
