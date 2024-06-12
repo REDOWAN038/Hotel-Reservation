@@ -28,3 +28,15 @@ test("should show hotel search results", async ({ page }) => {
     await expect(page.getByText("Hotels found in Test Country")).toBeVisible();
     await expect(page.getByRole("link", { name: "Test Hotel" })).toBeVisible();
 });
+
+// show hotel details
+test("should show hotel detail", async ({ page }) => {
+    await page.goto(FRONTEND_URL);
+
+    await page.getByPlaceholder("Where are you going?").fill("Test Country");
+    await page.getByRole("button", { name: "Search" }).click();
+
+    await page.getByRole("link", { name: "Test Hotel" }).click()
+    await expect(page).toHaveURL(/detail/);
+    await expect(page.getByRole("button", { name: "Book now" })).toBeVisible();
+});
