@@ -29,7 +29,7 @@ const SignIn = () => {
             if (res?.data?.success) {
                 dispatch(login(res?.data?.payload))
                 showToast(res?.data?.message, "success")
-                navigate(location.state?.from?.pathname)
+                navigate(location?.state?.from?.pathname || "/")
             }
         } catch (error) {
             if (error?.response?.status === 404) {

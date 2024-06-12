@@ -94,7 +94,7 @@ const GuestInfoForm = ({ hotelId, pricePerNight, adultCount, childCount }) => {
                             required
                             selected={checkOut}
                             onChange={(date) =>
-                                setValue("checkOut", date.toISOString)
+                                setValue("checkOut", date.toISOString())
                             }
                             selectsStart
                             startDate={checkIn}
