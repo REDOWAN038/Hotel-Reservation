@@ -1,19 +1,22 @@
 import { useParams } from "react-router-dom"
 import { useEffect, useState } from "react"
+import { Elements } from "@stripe/react-stripe-js"
 import { useSelector } from "react-redux"
 import { selectAll } from "../features/search/selector"
 import axios from "axios"
 import { showToast } from "../utils/toast"
-import { selectUser } from "../features/auth/selector"
+import { selectStripePromise, selectUser } from "../features/auth/selector"
 import BookingForm from "../forms/BookingForm/BookingForm"
 import BookingDetailsSummary from "../components/BookingDetailsSummary"
 
 const Booking = () => {
     const search = useSelector(selectAll)
     const user = useSelector(selectUser)
+    const stripePromise = useSelector(selectStripePromise)
     const { hotelId } = useParams()
     const [hotelData, setHotelData] = useState([])
     const [numberOfNights, setNumberOfNights] = useState(0)
+    const [paymentIntentData, setPaymentIntentData] = useState(null)
 
     const getHotelDetails = async () => {
         try {
@@ -23,6 +26,26 @@ const Booking = () => {
 
             if (res?.data?.success) {
                 setHotelData(res?.data?.payload?.hotel)
+            }
+        } catch (error) {
+            showToast(error?.response?.data?.message, "error")
+        }
+    }
+
+    const getPaymentIntent = async () => {
+        try {
+            const res = await axios.post(
+                `${
+                    import.meta.env.VITE_SERVER_URL
+                }/api/v1/hotels/booking/payment-intent/${hotelId}`,
+                {
+                    numberOfNights,
+                },
+                { withCredentials: true }
+            )
+
+            if (res?.data?.success) {
+                setPaymentIntentData(res?.data?.payload)
             }
         } catch (error) {
             showToast(error?.response?.data?.message, "error")
@@ -40,6 +63,21 @@ const Booking = () => {
         fetchData()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                await getPaymentIntent()
+            } catch (error) {
+                console.log(error)
+            }
+        }
+
+        if (numberOfNights > 0) {
+            fetchData()
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [numberOfNights])
 
     useEffect(() => {
         if (search.checkIn && search.checkOut) {
@@ -67,7 +105,19 @@ const Booking = () => {
                 hotel={hotelData}
             />
 
-            <BookingForm user={user} />
+            {user && paymentIntentData && (
+                <Elements
+                    stripe={stripePromise}
+                    options={{
+                        clientSecret: paymentIntentData.clientSecret,
+                    }}
+                >
+                    <BookingForm
+                        user={user}
+                        paymentIntent={paymentIntentData}
+                    />
+                </Elements>
+            )}
         </div>
     )
 }

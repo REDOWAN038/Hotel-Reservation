@@ -60,8 +60,7 @@ const handleHotelBookingPaymentIntent = async (req, res, next) => {
 const handleBookingHotel = async (req, res, next) => {
     try {
         const hotelId = req.params.id
-        const { paymentIntentId } = req.body
-        await bookingHotel(hotelId, req.user, paymentIntentId)
+        await bookingHotel(hotelId, req.user, req.body)
         return successResponse(res, {
             statusCode: 200,
             message: "hotel booking successful",

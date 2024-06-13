@@ -67,7 +67,7 @@ const hotelBookingPaymentIntent = async (hotelId, userId, numberOfNights) => {
         const totalCost = hotel.pricePerNight * numberOfNights;
 
         const paymentIntent = await stripe.paymentIntents.create({
-            amount: totalCost,
+            amount: totalCost * 100,
             currency: "usd",
             metadata: {
                 hotelId,
@@ -93,9 +93,9 @@ const hotelBookingPaymentIntent = async (hotelId, userId, numberOfNights) => {
 }
 
 // booking hotel
-const bookingHotel = async (hotelId, userId, paymentIntentId) => {
+const bookingHotel = async (hotelId, userId, newBooking) => {
     try {
-        const paymentIntent = await stripe.paymentIntents.retrieve(paymentIntentId);
+        const paymentIntent = await stripe.paymentIntents.retrieve(newBooking.paymentIntentId);
 
         if (!paymentIntent) {
             throw createError(404, "payment intent not found")
@@ -112,10 +112,7 @@ const bookingHotel = async (hotelId, userId, paymentIntentId) => {
             throw createError(400, `payment intent not succeeded. Status: ${paymentIntent.status}`)
         }
 
-        const newBooking = {
-            ...req.body,
-            booker: userId,
-        };
+        newBooking.userId = userId
 
         const booking = await bookingModel.create(newBooking)
 

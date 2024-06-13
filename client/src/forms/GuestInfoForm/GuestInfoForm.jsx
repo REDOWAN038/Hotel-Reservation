@@ -38,7 +38,7 @@ const GuestInfoForm = ({ hotelId, pricePerNight, adultCount, childCount }) => {
     const onSignInClick = (data) => {
         dispatch(
             setAll({
-                destination: "",
+                destination: search.destination,
                 checkIn: data.checkIn,
                 checkOut: data.checkOut,
                 adultCount: data.adultCount,
@@ -51,7 +51,7 @@ const GuestInfoForm = ({ hotelId, pricePerNight, adultCount, childCount }) => {
     const onSubmit = (data) => {
         dispatch(
             setAll({
-                destination: "",
+                destination: search.destination,
                 checkIn: data.checkIn,
                 checkOut: data.checkOut,
                 adultCount: data.adultCount,
@@ -63,7 +63,7 @@ const GuestInfoForm = ({ hotelId, pricePerNight, adultCount, childCount }) => {
 
     return (
         <div className='flex flex-col p-4 bg-blue-200 gap-4'>
-            <h3 className='text-md font-bold'>£{pricePerNight}</h3>
+            <h3 className='text-md font-bold'>${pricePerNight}</h3>
             <form
                 onSubmit={
                     isLoggedIn
