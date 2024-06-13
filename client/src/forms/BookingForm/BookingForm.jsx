@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form"
 import { useSelector } from "react-redux"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js"
 import { selectAll } from "../../features/search/selector"
 import { showToast } from "../../utils/toast"
@@ -13,6 +13,7 @@ const BookingForm = ({ user, paymentIntent }) => {
     const search = useSelector(selectAll)
     const { hotelId } = useParams()
     const [isLoading, setIsLoading] = useState(false)
+    const navigate = useNavigate()
 
     const { handleSubmit, register } = useForm({
         defaultValues: {
@@ -56,7 +57,7 @@ const BookingForm = ({ user, paymentIntent }) => {
                 if (res?.data?.success) {
                     setIsLoading(false)
                     showToast(res?.data?.message, "success")
-                    // navigate("/my-hotels")
+                    navigate("/my-bookings")
                 }
             } else {
                 setIsLoading(false)

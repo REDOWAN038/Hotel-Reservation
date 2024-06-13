@@ -9,6 +9,7 @@ import EditHotel from "./pages/EditHotel"
 import Search from "./pages/Search"
 import HotelDetails from "./pages/HotelDetails"
 import Booking from "./pages/Booking"
+import MyBookings from "./pages/MyBookings"
 
 const App = () => {
     return (
@@ -94,6 +95,16 @@ const App = () => {
                         <ProtectedRoute accessBy='authorized'>
                             <Layout>
                                 <Booking />
+                            </Layout>
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path='/my-bookings'
+                    element={
+                        <ProtectedRoute accessBy='authorized'>
+                            <Layout>
+                                <MyBookings />
                             </Layout>
                         </ProtectedRoute>
                     }
