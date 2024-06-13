@@ -45,7 +45,7 @@ const Search = () => {
             const res = await axios.get(
                 `${
                     import.meta.env.VITE_SERVER_URL
-                }/api/v1/hotels?${queryParams}`
+                }/api/v1/hotels/search?${queryParams}`
             )
 
             if (res?.data?.success) {

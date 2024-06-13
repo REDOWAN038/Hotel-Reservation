@@ -1,10 +1,13 @@
 const express = require("express")
 const { isLoggedOut, isLoggedIn } = require("../middlewares/auth")
-const { handleGetSearchHotels, handleGetHotel, handleHotelBookingPaymentIntent, handleBookingHotel } = require("../controllers/hotelController")
+const { handleGetSearchHotels, handleGetHotel, handleHotelBookingPaymentIntent, handleBookingHotel, handleGetHotels } = require("../controllers/hotelController")
 const router = express.Router()
 
+// get  hotels
+router.get("/", handleGetHotels)
+
 // get search hotels
-router.get("/", handleGetSearchHotels)
+router.get("/search", handleGetSearchHotels)
 
 // get single hotel
 router.get("/:id", handleGetHotel)

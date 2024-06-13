@@ -10,6 +10,7 @@ import Search from "./pages/Search"
 import HotelDetails from "./pages/HotelDetails"
 import Booking from "./pages/Booking"
 import MyBookings from "./pages/MyBookings"
+import Home from "./pages/Home"
 
 const App = () => {
     return (
@@ -19,7 +20,7 @@ const App = () => {
                     path='/'
                     element={
                         <Layout>
-                            <p>Home Page</p>
+                            <Home />
                         </Layout>
                     }
                 />

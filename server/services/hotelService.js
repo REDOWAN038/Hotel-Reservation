@@ -8,6 +8,16 @@ const { stripeSecretKey } = require("../src/secret")
 
 const stripe = new Stripe(stripeSecretKey)
 
+// get hotels
+const getHotels = async () => {
+    try {
+        const hotels = await hotelModel.find().sort({ updatedAt: -1 })
+        return hotels
+    } catch (error) {
+        throw error
+    }
+}
+
 // get search hotels
 const getSearchHotels = async (page, limit, queryParams) => {
     try {
@@ -137,5 +147,6 @@ module.exports = {
     getSearchHotels,
     getHotel,
     hotelBookingPaymentIntent,
-    bookingHotel
+    bookingHotel,
+    getHotels
 }
