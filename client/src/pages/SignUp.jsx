@@ -110,7 +110,7 @@ const SignUp = () => {
                             if (!val) {
                                 return "This field is required"
                             } else if (watch("password") !== val) {
-                                return "Your passwords do no match"
+                                return "Your passwords do not match"
                             }
                         },
                     })}
@@ -134,7 +134,7 @@ const SignUp = () => {
                 <span>
                     <button
                         type='submit'
-                        className='bg-blue-600 text-white p-2 font-bold hover:bg-blue-500 text-xl'
+                        className='bg-[#003580] text-white p-2 font-bold hover:bg-blue-800 text-xl'
                     >
                         Create Account
                     </button>

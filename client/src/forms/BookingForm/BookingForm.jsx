@@ -131,7 +131,7 @@ const BookingForm = ({ user, paymentIntent }) => {
                 <button
                     disabled={isLoading}
                     type='submit'
-                    className='bg-blue-600 text-white p-2 font-bold hover:bg-blue-500 text-md disabled:bg-gray-500'
+                    className='bg-[#003580] text-white p-2 font-bold hover:bg-blue-800 text-md disabled:bg-gray-500'
                 >
                     {isLoading ? "Saving..." : "Confirm Booking"}
                 </button>

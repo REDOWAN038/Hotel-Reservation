@@ -48,7 +48,7 @@ const MyHotels = () => {
                 <h1 className='text-3xl font-bold'>My Hotels</h1>
                 <Link
                     to='/add-hotels'
-                    className='flex bg-blue-600 text-white text-xl font-bold p-2 hover:bg-blue-500'
+                    className='flex bg-[#003580] text-white text-xl font-bold p-2 hover:bg-blue-800 rounded-md'
                 >
                     Add Hotel
                 </Link>
@@ -61,7 +61,7 @@ const MyHotels = () => {
                         className='flex flex-col justify-between border border-slate-300 rounded-lg p-8 gap-5'
                     >
                         <h2 className='text-2xl font-bold'>{hotel.name}</h2>
-                        <div className='whitespace-pre-line'>
+                        <div className='whitespace-pre-line line-clamp-4'>
                             {hotel.description}
                         </div>
                         <div className='grid grid-cols-5 gap-2'>
@@ -90,7 +90,7 @@ const MyHotels = () => {
                         <span className='flex justify-end'>
                             <Link
                                 to={`/edit-hotel/${hotel._id}`}
-                                className='flex bg-blue-600 text-white text-xl font-bold p-2 hover:bg-blue-500'
+                                className='flex bg-[#003580] text-white text-xl font-bold p-2 hover:bg-blue-800'
                             >
                                 View Details
                             </Link>

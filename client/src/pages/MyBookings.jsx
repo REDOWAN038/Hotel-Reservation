@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { showToast } from "../utils/toast"
 import axios from "axios"
+import { Link } from "react-router-dom"
 
 const MyBookings = () => {
     const [bookings, setBookings] = useState([])
@@ -51,7 +52,12 @@ const MyBookings = () => {
                     </div>
                     <div className='flex flex-col gap-4 overflow-y-auto max-h-[300px]'>
                         <div className='text-2xl font-bold'>
-                            {booking.hotelId.name}
+                            <Link
+                                to={`/detail/${booking.hotelId._id}`}
+                                className='text-2xl font-bold cursor-pointer'
+                            >
+                                {booking.hotelId.name}
+                            </Link>
                             <div className='text-xs font-normal'>
                                 {booking.hotelId.city},{" "}
                                 {booking.hotelId.country}

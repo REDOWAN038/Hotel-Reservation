@@ -75,7 +75,7 @@ const HotelDetails = () => {
                 ))}
             </div>
 
-            <div className='grid grid-cols-1 lg:grid-cols-[2fr_1fr]'>
+            <div className='grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-3'>
                 <div className='whitespace-pre-line'>
                     {hotelData?.description}
                 </div>
