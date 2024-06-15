@@ -106,8 +106,8 @@ const GuestInfoForm = ({ hotelId, pricePerNight, adultCount, childCount }) => {
                             wrapperClassName='min-w-full'
                         />
                     </div>
-                    <div className='flex bg-white px-2 py-1 gap-2'>
-                        <label className='items-center flex'>
+                    <div className='flex bg-white px-2 py-1'>
+                        <label className='items-center flex w-1/2'>
                             Adults:
                             <input
                                 className='w-full p-1 focus:outline-none font-bold'
@@ -125,7 +125,7 @@ const GuestInfoForm = ({ hotelId, pricePerNight, adultCount, childCount }) => {
                                 })}
                             />
                         </label>
-                        <label className='items-center flex'>
+                        <label className='items-center flex w-1/2'>
                             Children:
                             <input
                                 className='w-full p-1 focus:outline-none font-bold'

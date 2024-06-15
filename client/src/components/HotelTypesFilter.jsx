@@ -19,19 +19,25 @@ const HotelTypesFilter = () => {
 
     return (
         <div className='border-b border-slate-300 pb-5'>
-            <h4 className='text-md font-semibold mb-2'>Hotel Type</h4>
-            {hotelTypes.map((hotelType, idx) => (
-                <label key={idx} className='flex items-center space-x-2'>
-                    <input
-                        type='checkbox'
-                        className='rounded'
-                        value={hotelType}
-                        checked={selectedHotelTypes.includes(hotelType)}
-                        onChange={handleChange}
-                    />
-                    <span>{hotelType}</span>
-                </label>
-            ))}
+            <h4 className='text-sm lg:text-base font-semibold mb-2'>
+                Hotel Type
+            </h4>
+            <div className='grid grid-cols-3 lg:grid-cols-1'>
+                {hotelTypes.map((hotelType, idx) => (
+                    <label key={idx} className='flex items-center space-x-2'>
+                        <input
+                            type='checkbox'
+                            className='rounded'
+                            value={hotelType}
+                            checked={selectedHotelTypes.includes(hotelType)}
+                            onChange={handleChange}
+                        />
+                        <span className='text-sm lg:text-base'>
+                            {hotelType}
+                        </span>
+                    </label>
+                ))}
+            </div>
         </div>
     )
 }

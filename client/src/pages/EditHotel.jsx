@@ -72,6 +72,7 @@ const EditHotel = () => {
                 hotel={hotelData}
                 isLoading={isLoading}
                 setIsLoading={setIsLoading}
+                method='Update'
             />
         </>
     )

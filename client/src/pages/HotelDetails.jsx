@@ -52,7 +52,7 @@ const HotelDetails = () => {
                 <h1 className='text-3xl font-bold'>{hotelData?.name}</h1>
             </div>
 
-            <div className='grid grid-cols-1 lg:grid-cols-3 gap-4'>
+            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
                 {hotelData?.imageUrls?.map((image, idx) => (
                     <div key={idx} className='h-[300px]'>
                         <img
@@ -64,7 +64,7 @@ const HotelDetails = () => {
                 ))}
             </div>
 
-            <div className='grid grid-cols-1 lg:grid-cols-4 gap-2'>
+            <div className='grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-2'>
                 {hotelData?.facilities?.map((facility, idx) => (
                     <div
                         key={idx}

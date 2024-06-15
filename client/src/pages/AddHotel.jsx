@@ -40,6 +40,7 @@ const AddHotel = () => {
                 onSave={handleSave}
                 isLoading={isLoading}
                 setIsLoading={setIsLoading}
+                method='Add'
             />
         </>
     )

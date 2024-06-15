@@ -10,11 +10,17 @@ import FacilitiesFilter from "../components/FacilitiesFilter"
 import PriceFilter from "../components/PriceFilter"
 import { selectAllFilters } from "../features/filter/selector"
 import SortFilter from "../components/SortFilter"
+import FilterModal from "../modal/FilterModal"
 
 const Search = () => {
     const search = useSelector(selectAll)
     const filter = useSelector(selectAllFilters)
     const [hotelData, setHotelData] = useState([])
+    const [isOpen, setIsOpen] = useState(false)
+
+    const toggleModal = () => {
+        setIsOpen(!isOpen)
+    }
 
     const getSearchHotels = async () => {
         try {
@@ -67,7 +73,7 @@ const Search = () => {
 
     return (
         <div className='grid grid-cols-1 lg:grid-cols-[250px_1fr] gap-5'>
-            <div className='rounded-lg border border-slate-300 p-5 h-fit sticky top-10'>
+            <div className='hidden lg:flex rounded-lg border border-slate-300 p-5 h-fit sticky top-10'>
                 <div className='space-y-5'>
                     <h3 className='text-lg font-semibold border-b border-slate-300 pb-5'>
                         Filter by:
@@ -79,12 +85,23 @@ const Search = () => {
                 </div>
             </div>
             <div className='flex flex-col gap-5'>
-                <div className='flex justify-between items-center'>
-                    <span className='text-xl font-bold'>
+                <div className='flex flex-col lg:flex-row justify-between items-center'>
+                    <div className='flex gap-2 lg:hidden'>
+                        <button
+                            onClick={toggleModal}
+                            className='p-2 border rounded-md w-1/2'
+                        >
+                            Filter
+                        </button>
+                        <SortFilter />
+                    </div>
+                    <span className='text-xl font-bold mt-4'>
                         {hotelData?.pagination?.totalHotels} Hotels found
                         {search.destination ? ` in ${search.destination}` : ""}
                     </span>
-                    <SortFilter />
+                    <div className='hidden lg:flex'>
+                        <SortFilter />
+                    </div>
                 </div>
                 {hotelData?.hotels?.map((hotel, idx) => (
                     <SearchHotelsCard key={idx} hotel={hotel} />
@@ -97,6 +114,7 @@ const Search = () => {
                     />
                 </div>
             </div>
+            <FilterModal isOpen={isOpen} toggleModal={toggleModal} />
         </div>
     )
 }

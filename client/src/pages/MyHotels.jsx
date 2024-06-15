@@ -45,10 +45,12 @@ const MyHotels = () => {
     return (
         <div className='space-y-5'>
             <span className='flex justify-between'>
-                <h1 className='text-3xl font-bold'>My Hotels</h1>
+                <h1 className='text-xl md:text-2xl lgLtext-3xl font-bold'>
+                    My Hotels
+                </h1>
                 <Link
                     to='/add-hotels'
-                    className='flex bg-[#003580] text-white text-xl font-bold p-2 hover:bg-blue-800 rounded-md'
+                    className='flex bg-[#003580] text-white text-sm md:text-base lg:text-xl font-bold p-2 hover:bg-blue-800 rounded-sm'
                 >
                     Add Hotel
                 </Link>
@@ -58,13 +60,18 @@ const MyHotels = () => {
                     <div
                         key={hotel._id}
                         data-testid='hotel-card'
-                        className='flex flex-col justify-between border border-slate-300 rounded-lg p-8 gap-5'
+                        className='flex flex-col text-sm justify-between border border-slate-300 rounded-lg p-8 gap-5'
                     >
-                        <h2 className='text-2xl font-bold'>{hotel.name}</h2>
+                        <Link
+                            to={`/edit-hotel/${hotel._id}`}
+                            className='text-2xl font-bold'
+                        >
+                            {hotel.name}
+                        </Link>
                         <div className='whitespace-pre-line line-clamp-4'>
                             {hotel.description}
                         </div>
-                        <div className='grid grid-cols-5 gap-2'>
+                        <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2'>
                             <div className='border border-slate-300 rounded-sm p-3 flex items-center'>
                                 <BsMap className='mr-3' />
                                 {hotel.city}, {hotel.country}

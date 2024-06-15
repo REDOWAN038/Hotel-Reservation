@@ -9,7 +9,7 @@ export default {
     container: {
       padding: {
         DEFAULT: "2rem",
-        md: "10rem",
+        lg: "10rem",
       },
     },
   },

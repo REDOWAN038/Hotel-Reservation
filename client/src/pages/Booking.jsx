@@ -95,7 +95,7 @@ const Booking = () => {
     }
 
     return (
-        <div className='grid md:grid-cols-[1fr_2fr]'>
+        <div className='grid md:grid-cols-[1fr_2fr] gap-2'>
             <BookingDetailsSummary
                 checkIn={search.checkIn.split("T")[0]}
                 checkOut={search.checkOut.split("T")[0]}

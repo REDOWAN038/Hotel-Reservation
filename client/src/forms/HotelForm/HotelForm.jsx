@@ -6,7 +6,7 @@ import GuestsSection from "./GuestsSection"
 import ImagesSection from "./ImagesSection"
 import { useEffect } from "react"
 
-const HotelForm = ({ hotel, onSave, isLoading, setIsLoading }) => {
+const HotelForm = ({ hotel, onSave, isLoading, setIsLoading, method }) => {
     const formMethods = useForm()
     const { handleSubmit, reset } = formMethods
 
@@ -64,9 +64,9 @@ const HotelForm = ({ hotel, onSave, isLoading, setIsLoading }) => {
                     <button
                         disabled={isLoading}
                         type='submit'
-                        className='bg-[#003580] text-white p-2 font-bold hover:bg-blue-800 text-xl rounded-md disabled:bg-gray-500'
+                        className='bg-[#003580] text-white p-2 font-bold hover:bg-blue-800 text-xl rounded-sm disabled:bg-gray-500'
                     >
-                        {isLoading ? "Saving..." : "Save"}
+                        {isLoading ? "Please Wait..." : `${method}`}
                     </button>
                 </span>
             </form>

@@ -19,19 +19,23 @@ const FacilitiesFilter = () => {
 
     return (
         <div className='border-b border-slate-300 pb-5'>
-            <h4 className='text-md font-semibold mb-2'>Facilities</h4>
-            {hotelFacilities.map((facility, idx) => (
-                <label key={idx} className='flex items-center space-x-2'>
-                    <input
-                        type='checkbox'
-                        className='rounded'
-                        value={facility}
-                        checked={selectedFacilities.includes(facility)}
-                        onChange={handleChange}
-                    />
-                    <span>{facility}</span>
-                </label>
-            ))}
+            <h4 className='text-sm lg:text-base font-semibold mb-2'>
+                Facilities
+            </h4>
+            <div className='grid grid-cols-2 lg:grid-cols-1'>
+                {hotelFacilities.map((facility, idx) => (
+                    <label key={idx} className='flex items-center space-x-2'>
+                        <input
+                            type='checkbox'
+                            className='rounded'
+                            value={facility}
+                            checked={selectedFacilities.includes(facility)}
+                            onChange={handleChange}
+                        />
+                        <span className='text-sm lg:text-base'>{facility}</span>
+                    </label>
+                ))}
+            </div>
         </div>
     )
 }

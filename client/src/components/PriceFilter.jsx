@@ -12,9 +12,12 @@ const PriceFilter = () => {
 
     return (
         <div>
-            <h4 className='text-md font-semibold mb-2'> Max Price($)</h4>
+            <h4 className='text-sm lg:text-base font-semibold mb-2'>
+                {" "}
+                Max Price($)
+            </h4>
             <select
-                className='p-2 border rounded-md w-full'
+                className='p-2 border rounded-md w-full text-sm lg:text-base'
                 value={selectedPrice}
                 onChange={handleChange}
             >
