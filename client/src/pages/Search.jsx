@@ -14,13 +14,7 @@ import SortFilter from "../components/SortFilter"
 const Search = () => {
     const search = useSelector(selectAll)
     const filter = useSelector(selectAllFilters)
-    // const [page, setPage] = useState(1)
     const [hotelData, setHotelData] = useState([])
-    // const [selectedStars, setSelectedStars] = useState([])
-    // const [selectedHotelTypes, setSelectedHotelTypes] = useState([])
-    // const [selectedFacilities, setSelectedFacilities] = useState([])
-    // const [selectedPrice, setSelectedPrice] = useState()
-    // const [sortOption, setSortOption] = useState("")
 
     const getSearchHotels = async () => {
         try {
@@ -58,38 +52,6 @@ const Search = () => {
             console.log(error)
         }
     }
-
-    // const handleStarsChange = (e) => {
-    //     const starRating = e.target.value
-
-    //     setSelectedStars((prevStars) =>
-    //         e.target.checked
-    //             ? [...prevStars, starRating]
-    //             : prevStars.filter((star) => star !== starRating)
-    //     )
-    // }
-
-    // const handleHotelTypeChange = (e) => {
-    //     const hotelType = e.target.value
-
-    //     setSelectedHotelTypes((prevHotelTypes) =>
-    //         e.target.checked
-    //             ? [...prevHotelTypes, hotelType]
-    //             : prevHotelTypes.filter((hotel) => hotel !== hotelType)
-    //     )
-    // }
-
-    // const handleFacilityChange = (e) => {
-    //     const facility = e.target.value
-
-    //     setSelectedFacilities((prevFacilities) =>
-    //         e.target.checked
-    //             ? [...prevFacilities, facility]
-    //             : prevFacilities.filter(
-    //                   (prevFacility) => prevFacility !== facility
-    //               )
-    //     )
-    // }
 
     useEffect(() => {
         const fetchData = async () => {
