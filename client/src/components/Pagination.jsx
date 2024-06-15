@@ -1,4 +1,9 @@
-const Pagination = ({ currentPage, totalPages, onPageChange }) => {
+import { useDispatch } from "react-redux"
+import { setPage } from "../features/search/searchSlice"
+
+const Pagination = ({ currentPage, totalPages }) => {
+    const dispatch = useDispatch()
+
     const pageNumbers = []
     for (let i = 1; i <= totalPages; i++) {
         pageNumbers.push(i)
@@ -14,7 +19,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
                             currentPage === number ? "bg-gray-200" : ""
                         }`}
                     >
-                        <button onClick={() => onPageChange(number)}>
+                        <button onClick={() => dispatch(setPage(number))}>
                             {number}
                         </button>
                     </li>

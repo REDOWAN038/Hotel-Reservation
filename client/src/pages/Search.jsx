@@ -8,16 +8,19 @@ import StarRatingFilter from "../components/StarRatingFilter"
 import HotelTypesFilter from "../components/HotelTypesFilter"
 import FacilitiesFilter from "../components/FacilitiesFilter"
 import PriceFilter from "../components/PriceFilter"
+import { selectAllFilters } from "../features/filter/selector"
+import SortFilter from "../components/SortFilter"
 
 const Search = () => {
     const search = useSelector(selectAll)
-    const [page, setPage] = useState(1)
+    const filter = useSelector(selectAllFilters)
+    // const [page, setPage] = useState(1)
     const [hotelData, setHotelData] = useState([])
-    const [selectedStars, setSelectedStars] = useState([])
-    const [selectedHotelTypes, setSelectedHotelTypes] = useState([])
-    const [selectedFacilities, setSelectedFacilities] = useState([])
-    const [selectedPrice, setSelectedPrice] = useState()
-    const [sortOption, setSortOption] = useState("")
+    // const [selectedStars, setSelectedStars] = useState([])
+    // const [selectedHotelTypes, setSelectedHotelTypes] = useState([])
+    // const [selectedFacilities, setSelectedFacilities] = useState([])
+    // const [selectedPrice, setSelectedPrice] = useState()
+    // const [sortOption, setSortOption] = useState("")
 
     const getSearchHotels = async () => {
         try {
@@ -28,19 +31,19 @@ const Search = () => {
             queryParams.append("checkOut", search.checkOut || "")
             queryParams.append("adultCount", search.adultCount || 1)
             queryParams.append("childCount", search.childCount || 0)
-            queryParams.append("page", page || 1)
+            queryParams.append("page", search.page || 1)
 
-            queryParams.append("maxPrice", selectedPrice || "")
-            queryParams.append("sortOption", sortOption || "")
+            queryParams.append("maxPrice", filter.maxPrice || "")
+            queryParams.append("sortOption", filter.sortOption || "")
 
-            selectedFacilities?.forEach((facility) =>
+            filter.facilities?.forEach((facility) =>
                 queryParams.append("facilities", facility)
             )
 
-            selectedHotelTypes?.forEach((type) =>
+            filter.hotelTypes?.forEach((type) =>
                 queryParams.append("types", type)
             )
-            selectedStars?.forEach((star) => queryParams.append("stars", star))
+            filter.stars?.forEach((star) => queryParams.append("stars", star))
 
             const res = await axios.get(
                 `${
@@ -56,37 +59,37 @@ const Search = () => {
         }
     }
 
-    const handleStarsChange = (e) => {
-        const starRating = e.target.value
+    // const handleStarsChange = (e) => {
+    //     const starRating = e.target.value
 
-        setSelectedStars((prevStars) =>
-            e.target.checked
-                ? [...prevStars, starRating]
-                : prevStars.filter((star) => star !== starRating)
-        )
-    }
+    //     setSelectedStars((prevStars) =>
+    //         e.target.checked
+    //             ? [...prevStars, starRating]
+    //             : prevStars.filter((star) => star !== starRating)
+    //     )
+    // }
 
-    const handleHotelTypeChange = (e) => {
-        const hotelType = e.target.value
+    // const handleHotelTypeChange = (e) => {
+    //     const hotelType = e.target.value
 
-        setSelectedHotelTypes((prevHotelTypes) =>
-            e.target.checked
-                ? [...prevHotelTypes, hotelType]
-                : prevHotelTypes.filter((hotel) => hotel !== hotelType)
-        )
-    }
+    //     setSelectedHotelTypes((prevHotelTypes) =>
+    //         e.target.checked
+    //             ? [...prevHotelTypes, hotelType]
+    //             : prevHotelTypes.filter((hotel) => hotel !== hotelType)
+    //     )
+    // }
 
-    const handleFacilityChange = (e) => {
-        const facility = e.target.value
+    // const handleFacilityChange = (e) => {
+    //     const facility = e.target.value
 
-        setSelectedFacilities((prevFacilities) =>
-            e.target.checked
-                ? [...prevFacilities, facility]
-                : prevFacilities.filter(
-                      (prevFacility) => prevFacility !== facility
-                  )
-        )
-    }
+    //     setSelectedFacilities((prevFacilities) =>
+    //         e.target.checked
+    //             ? [...prevFacilities, facility]
+    //             : prevFacilities.filter(
+    //                   (prevFacility) => prevFacility !== facility
+    //               )
+    //     )
+    // }
 
     useEffect(() => {
         const fetchData = async () => {
@@ -98,15 +101,7 @@ const Search = () => {
         }
         fetchData()
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [
-        search,
-        selectedStars,
-        selectedHotelTypes,
-        selectedFacilities,
-        selectedPrice,
-        sortOption,
-        page,
-    ])
+    }, [search, filter])
 
     return (
         <div className='grid grid-cols-1 lg:grid-cols-[250px_1fr] gap-5'>
@@ -115,22 +110,10 @@ const Search = () => {
                     <h3 className='text-lg font-semibold border-b border-slate-300 pb-5'>
                         Filter by:
                     </h3>
-                    <StarRatingFilter
-                        selectedStars={selectedStars}
-                        onChange={handleStarsChange}
-                    />
-                    <HotelTypesFilter
-                        selectedHotelTypes={selectedHotelTypes}
-                        onChange={handleHotelTypeChange}
-                    />
-                    <FacilitiesFilter
-                        selectedFacilities={selectedFacilities}
-                        onChange={handleFacilityChange}
-                    />
-                    <PriceFilter
-                        selectedPrice={selectedPrice}
-                        onChange={(value) => setSelectedPrice(value)}
-                    />
+                    <StarRatingFilter />
+                    <HotelTypesFilter />
+                    <FacilitiesFilter />
+                    <PriceFilter />
                 </div>
             </div>
             <div className='flex flex-col gap-5'>
@@ -139,20 +122,7 @@ const Search = () => {
                         {hotelData?.pagination?.totalHotels} Hotels found
                         {search.destination ? ` in ${search.destination}` : ""}
                     </span>
-                    <select
-                        value={sortOption}
-                        onChange={(event) => setSortOption(event.target.value)}
-                        className='p-2 border rounded-md'
-                    >
-                        <option value=''>Sort By</option>
-                        <option value='starRating'>Star Rating</option>
-                        <option value='pricePerNightAsc'>
-                            Price Per Night (low to high)
-                        </option>
-                        <option value='pricePerNightDesc'>
-                            Price Per Night (high to low)
-                        </option>
-                    </select>
+                    <SortFilter />
                 </div>
                 {hotelData?.hotels?.map((hotel, idx) => (
                     <SearchHotelsCard key={idx} hotel={hotel} />
@@ -162,7 +132,6 @@ const Search = () => {
                     <Pagination
                         currentPage={hotelData?.pagination?.currentPage || 1}
                         totalPages={hotelData?.pagination?.totalPages || 1}
-                        onPageChange={(page) => setPage(page)}
                     />
                 </div>
             </div>

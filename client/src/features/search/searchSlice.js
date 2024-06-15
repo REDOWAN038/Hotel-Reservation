@@ -6,7 +6,7 @@ const initialState = {
     checkOut: sessionStorage.getItem('checkOut') || new Date().toISOString(),
     adultCount: sessionStorage.getItem('adultCount') || 1,
     childCount: sessionStorage.getItem('childCount') || 0,
-    hotelId: ""
+    page: 1,
 };
 
 export const searchSlice = createSlice({
@@ -48,12 +48,12 @@ export const searchSlice = createSlice({
             state.childCount = action.payload
             sessionStorage.setItem('childCount', action.payload);
         },
-        setHotelId: (state, action) => {
-            state.hotelId = action.payload
+        setPage: (state, action) => {
+            state.page = action.payload
         },
     },
 });
 
-export const { setAll, setDestination, setCheckIn, setCheckOut, setAdultCount, setChildCount, setHotelId } = searchSlice.actions;
+export const { setAll, setDestination, setCheckIn, setCheckOut, setAdultCount, setChildCount, setPage } = searchSlice.actions;
 
 export default searchSlice.reducer;

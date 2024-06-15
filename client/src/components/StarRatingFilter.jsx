@@ -1,4 +1,19 @@
-const StarRatingFilter = ({ selectedStars, onChange }) => {
+import { useDispatch, useSelector } from "react-redux"
+import { setStars } from "../features/filter/filterSlice"
+import { selectStars } from "../features/filter/selector"
+
+const StarRatingFilter = () => {
+    const selectedStars = useSelector(selectStars)
+    const dispatch = useDispatch()
+
+    const handleChange = (e) => {
+        const starRating = e.target.value
+        const updatedStars = e.target.checked
+            ? [...selectedStars, starRating]
+            : selectedStars.filter((prevStar) => prevStar !== starRating)
+        dispatch(setStars(updatedStars))
+    }
+
     return (
         <div className='border-b border-slate-300 pb-5'>
             <h4 className='text-md font-semibold mb-2'>Property Rating</h4>
@@ -9,7 +24,7 @@ const StarRatingFilter = ({ selectedStars, onChange }) => {
                         className='rounded'
                         value={star}
                         checked={selectedStars.includes(star)}
-                        onChange={onChange}
+                        onChange={handleChange}
                     />
                     <span>{star} Stars</span>
                 </label>
