@@ -1,35 +1,23 @@
 const mongoose = require("mongoose")
 
-const bookingSchema = new mongoose.Schema({
-    userId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
-        required: true
-    },
+const roomSchema = new mongoose.Schema({
     hotelId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Hotel",
         required: true
     },
-    roomId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Room",
-        required: true
-    },
-    firstName: {
+    title: {
         type: String,
         trim: true,
         required: true
     },
-    lastName: {
+    description: {
         type: String,
         trim: true,
         required: true
     },
-    email: {
-        type: String,
-        lowercase: true,
-        trim: true,
+    pricePerNight: {
+        type: Number,
         required: true
     },
     adultCount: {
@@ -48,15 +36,12 @@ const bookingSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    totalCost: {
-        type: Number,
-        required: true
+    availability: {
+        type: Boolean,
+        required: true,
+        default: true
     },
-    paymentIntentId: {
-        type: String,
-        required: true
-    }
 }, { timestamps: true })
 
 
-module.exports = mongoose.model("Booking", bookingSchema)
+module.exports = mongoose.model("Room", roomSchema)

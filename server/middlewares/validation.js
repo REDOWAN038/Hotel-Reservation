@@ -71,19 +71,7 @@ const validateAddHotel = [
         .notEmpty()
         .withMessage("Type is required"),
 
-    body("adultCount")
-        .notEmpty()
-        .withMessage("adultCount is required")
-        .isNumeric()
-        .withMessage("adultCount must be a number"),
-
-    body("childCount")
-        .notEmpty()
-        .withMessage("childCount is required")
-        .isNumeric()
-        .withMessage("childCount must be a number"),
-
-    body("pricePerNight")
+    body("minimumPricePerNight")
         .notEmpty()
         .withMessage("pricePerNight is required")
         .isNumeric()
@@ -105,9 +93,42 @@ const validateAddHotel = [
         .withMessage("facilities is required")
 ]
 
+// validate create room
+const validateCreateRoom = [
+    body("title")
+        .trim()
+        .notEmpty()
+        .withMessage("Title is required"),
+
+    body("description")
+        .trim()
+        .notEmpty()
+        .withMessage("Description is required"),
+
+    body("pricePerNight")
+        .notEmpty()
+        .withMessage("pricePerNight is required")
+        .isNumeric()
+        .withMessage("pricePerNight must be a number"),
+
+    body("adultCount")
+        .notEmpty()
+        .withMessage("adultCount is required")
+        .isNumeric()
+        .withMessage("adultCount must be a number"),
+
+    body("childCount")
+        .notEmpty()
+        .withMessage("childCount is required")
+        .isNumeric()
+        .withMessage("childCount must be a number"),
+
+]
+
 
 module.exports = {
     validateUserRegistration,
     validateUserLogin,
-    validateAddHotel
+    validateAddHotel,
+    validateCreateRoom
 }
