@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react"
 import axios from "axios"
 import { BsBuilding, BsMap } from "react-icons/bs"
-import { BiHotel, BiMoney, BiStar } from "react-icons/bi"
+import { BiMoney, BiStar } from "react-icons/bi"
+import { MdOutlineBedroomChild } from "react-icons/md"
 import { showToast } from "../utils/toast"
 import { Link } from "react-router-dom"
 
@@ -82,12 +83,11 @@ const MyHotels = () => {
                             </div>
                             <div className='border border-slate-300 rounded-sm p-3 flex items-center'>
                                 <BiMoney className='mr-1' />$
-                                {hotel.pricePerNight} per night
+                                {hotel.minimumPricePerNight} per night (min)
                             </div>
                             <div className='border border-slate-300 rounded-sm p-3 flex items-center'>
-                                <BiHotel className='mr-3' />
-                                {hotel.adultCount} adults, {hotel.childCount}{" "}
-                                children
+                                <MdOutlineBedroomChild className='mr-3' />
+                                {hotel.rooms.length} rooms
                             </div>
                             <div className='border border-slate-300 rounded-sm p-3 flex items-center'>
                                 <BiStar className='mr-1' />

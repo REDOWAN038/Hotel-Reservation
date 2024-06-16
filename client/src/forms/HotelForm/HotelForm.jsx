@@ -58,7 +58,7 @@ const HotelForm = ({ hotel, onSave, isLoading, setIsLoading, method }) => {
                 <DetailsSection />
                 <TypeSection />
                 <FacilitiesSection />
-                <GuestsSection />
+                {/* <GuestsSection /> */}
                 <ImagesSection />
                 <span className='flex justify-end'>
                     <button

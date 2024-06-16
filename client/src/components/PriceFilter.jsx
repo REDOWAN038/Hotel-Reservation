@@ -11,7 +11,7 @@ const PriceFilter = () => {
     }
 
     return (
-        <div>
+        <>
             <h4 className='text-sm lg:text-base font-semibold mb-2'>
                 {" "}
                 Max Price($)
@@ -30,7 +30,7 @@ const PriceFilter = () => {
                     )
                 )}
             </select>
-        </div>
+        </>
     )
 }
 

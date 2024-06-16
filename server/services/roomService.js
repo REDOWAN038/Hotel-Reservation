@@ -26,6 +26,14 @@ const createRoom = async (newRoom, userId) => {
         newRoom.checkOut = new Date().toISOString()
 
         const room = await roomModel.create(newRoom)
+
+        await hotelModel.findByIdAndUpdate(
+            newRoom.hotelId,
+            {
+                $push: { rooms: room },
+            }
+        );
+
         return room
     } catch (error) {
         throw error
@@ -130,10 +138,42 @@ const updateRoom = async (roomId, updatedRoom, hotelId, userId) => {
     }
 }
 
+// delete room
+const deleteRoom = async (roomId, hotelId, userId) => {
+    try {
+        const hotel = await hotelModel.findOne({
+            _id: hotelId,
+            owner: userId
+        })
+
+        if (!hotel) {
+            throw createError(404, "no room for that hotel is found")
+        }
+        const room = await roomModel.findOneAndDelete({
+            _id: roomId,
+            hotelId
+        })
+
+        if (!room) {
+            throw createError(404, "no room found")
+        }
+
+        await hotelModel.findByIdAndUpdate(
+            hotelId,
+            {
+                $pull: { rooms: room },
+            }
+        );
+    } catch (error) {
+        throw error
+    }
+}
+
 module.exports = {
     createRoom,
     getRooms,
     getSingleRoom,
     updateRoom,
-    getAllRooms
+    getAllRooms,
+    deleteRoom
 }

@@ -1,0 +1,198 @@
+import { useEffect, useState } from "react"
+import { showToast } from "../../utils/toast"
+import axios from "axios"
+import { useForm } from "react-hook-form"
+
+const RoomForm = ({ onSave, isLoading, setIsLoading, method }) => {
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm()
+    const [hotelData, setHotelData] = useState()
+
+    const getHotelData = async () => {
+        try {
+            const res = await axios.get(
+                `${import.meta.env.VITE_SERVER_URL}/api/v1/my-hotels`,
+                { withCredentials: true }
+            )
+
+            if (res?.data?.success) {
+                setHotelData(res?.data?.payload?.hotels)
+            }
+        } catch (error) {
+            showToast("something went wrong...", "error")
+        }
+    }
+
+    const onSubmit = async (roomData) => {
+        try {
+            setIsLoading(true)
+            await onSave(roomData)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                await getHotelData()
+            } catch (error) {
+                console.log(error)
+            }
+        }
+        fetchData()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
+    return (
+        <form
+            className='flex flex-col gap-10'
+            onSubmit={handleSubmit(onSubmit)}
+        >
+            <h1 className='text-3xl font-bold mb-3'>Create Room</h1>
+            <label className='text-gray-700 text-sm font-bold flex-1'>
+                Select Hotel
+                <select
+                    className='border rounded w-full py-1 px-2 font-normal'
+                    {...register("hotelId", {
+                        required: "This field is required",
+                    })}
+                >
+                    <option value=''>Select Hotel</option>
+                    {hotelData?.map((hotel, idx) => (
+                        <option key={idx} value={hotel._id}>
+                            {hotel.name}
+                        </option>
+                    ))}
+                </select>
+                {errors.hotelId && (
+                    <span className='text-red-500'>
+                        {errors.hotelId.message}
+                    </span>
+                )}
+            </label>
+
+            <label className='text-gray-700 text-sm font-bold flex-1'>
+                Title
+                <input
+                    type='text'
+                    className='border rounded w-full py-1 px-2 font-normal'
+                    {...register("title", {
+                        required: "This field is required",
+                    })}
+                ></input>
+                {errors.title && (
+                    <span className='text-red-500'>{errors.title.message}</span>
+                )}
+            </label>
+
+            <label className='text-gray-700 text-sm font-bold flex-1'>
+                Description
+                <textarea
+                    rows={10}
+                    className='border rounded w-full py-1 px-2 font-normal'
+                    {...register("description", {
+                        required: "This field is required",
+                    })}
+                ></textarea>
+                {errors.description && (
+                    <span className='text-red-500'>
+                        {errors.description.message}
+                    </span>
+                )}
+            </label>
+
+            <div className='flex space-x-6'>
+                <label className='text-gray-700 text-sm font-bold flex-1'>
+                    Price Per Night ($)
+                    <input
+                        type='number'
+                        min={1}
+                        className='border rounded w-full py-1 px-2 font-normal'
+                        {...register("pricePerNight", {
+                            required: "This field is required",
+                        })}
+                    ></input>
+                    {errors.pricePerNight && (
+                        <span className='text-red-500'>
+                            {errors.pricePerNight.message}
+                        </span>
+                    )}
+                </label>
+
+                <label className='text-gray-700 text-sm font-bold flex-1'>
+                    Availability
+                    <select
+                        className='border rounded w-full py-1 px-2 font-normal'
+                        {...register("availability", {
+                            required: "This field is required",
+                        })}
+                    >
+                        <option value='true'>True</option>
+                        {["true", "false"].map((value) => (
+                            <option key={value} value={value}>
+                                {value}
+                            </option>
+                        ))}
+                    </select>
+                    {errors.availability && (
+                        <span className='text-red-500'>
+                            {errors.availability.message}
+                        </span>
+                    )}
+                </label>
+            </div>
+
+            <div className='flex space-x-6'>
+                <label className='text-gray-700 text-sm font-bold flex-1'>
+                    Adult Count
+                    <input
+                        type='number'
+                        min={1}
+                        className='border rounded w-full py-1 px-2 font-normal'
+                        {...register("adultCount", {
+                            required: "This field is required",
+                        })}
+                    ></input>
+                    {errors.adultCount && (
+                        <span className='text-red-500'>
+                            {errors.adultCount.message}
+                        </span>
+                    )}
+                </label>
+
+                <label className='text-gray-700 text-sm font-bold flex-1'>
+                    Child Count
+                    <input
+                        type='number'
+                        min={1}
+                        className='border rounded w-full py-1 px-2 font-normal'
+                        {...register("childCount", {
+                            required: "This field is required",
+                        })}
+                    ></input>
+                    {errors.childCount && (
+                        <span className='text-red-500'>
+                            {errors.childCount.message}
+                        </span>
+                    )}
+                </label>
+            </div>
+
+            <span className='flex justify-end'>
+                <button
+                    disabled={isLoading}
+                    type='submit'
+                    className='bg-[#003580] text-white p-2 font-bold hover:bg-blue-800 text-xl rounded-sm disabled:bg-gray-500'
+                >
+                    {isLoading ? "Please Wait..." : `${method}`}
+                </button>
+            </span>
+        </form>
+    )
+}
+
+export default RoomForm

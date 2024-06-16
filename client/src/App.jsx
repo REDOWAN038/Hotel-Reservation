@@ -11,6 +11,7 @@ import HotelDetails from "./pages/HotelDetails"
 import Booking from "./pages/Booking"
 import MyBookings from "./pages/MyBookings"
 import Home from "./pages/Home"
+import CreateRoom from "./pages/CreateRoom"
 
 const App = () => {
     return (
@@ -106,6 +107,16 @@ const App = () => {
                         <ProtectedRoute accessBy='authorized'>
                             <Layout>
                                 <MyBookings />
+                            </Layout>
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path='/create-room'
+                    element={
+                        <ProtectedRoute accessBy='authorized'>
+                            <Layout>
+                                <CreateRoom />
                             </Layout>
                         </ProtectedRoute>
                     }

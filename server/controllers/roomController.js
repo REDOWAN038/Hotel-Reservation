@@ -1,5 +1,5 @@
 const { successResponse } = require("../handler/responseHandler");
-const { createRoom, getRooms, getSingleRoom, updateRoom, getAllRooms } = require("../services/roomService");
+const { createRoom, getRooms, getSingleRoom, updateRoom, getAllRooms, deleteRoom } = require("../services/roomService");
 
 // create room
 const handleCreateRoom = async (req, res, next) => {
@@ -52,7 +52,6 @@ const handleGetAllRooms = async (req, res, next) => {
 // get single room
 const handleGetSingleRoom = async (req, res, next) => {
     try {
-        const { hotelId } = req.body
         const hotel = await getSingleRoom(req.params.roomId, req.params.hotelId, req.user)
         return successResponse(res, {
             statusCode: 200,
@@ -82,10 +81,24 @@ const handleUpdateRoom = async (req, res, next) => {
     }
 }
 
+// delete room
+const handleDeleteRoom = async (req, res, next) => {
+    try {
+        await deleteRoom(req.params.roomId, req.params.hotelId, req.user)
+        return successResponse(res, {
+            statusCode: 200,
+            message: "room deleted successfully",
+        })
+    } catch (error) {
+        next(error)
+    }
+}
+
 module.exports = {
     handleCreateRoom,
     handleGetRooms,
     handleGetSingleRoom,
     handleUpdateRoom,
-    handleGetAllRooms
+    handleGetAllRooms,
+    handleDeleteRoom
 }

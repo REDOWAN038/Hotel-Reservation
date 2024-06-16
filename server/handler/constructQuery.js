@@ -8,17 +8,17 @@ const constructQuery = (queryParams) => {
         ];
     }
 
-    if (queryParams.adultCount) {
-        constructedQuery.adultCount = {
-            $gte: parseInt(queryParams.adultCount),
-        };
-    }
+    // if (queryParams.adultCount) {
+    //     constructedQuery.adultCount = {
+    //         $gte: parseInt(queryParams.adultCount),
+    //     };
+    // }
 
-    if (queryParams.childCount) {
-        constructedQuery.childCount = {
-            $gte: parseInt(queryParams.childCount),
-        };
-    }
+    // if (queryParams.childCount) {
+    //     constructedQuery.childCount = {
+    //         $gte: parseInt(queryParams.childCount),
+    //     };
+    // }
 
     if (queryParams.facilities) {
         constructedQuery.facilities = {
@@ -45,7 +45,7 @@ const constructQuery = (queryParams) => {
     }
 
     if (queryParams.maxPrice) {
-        constructedQuery.pricePerNight = {
+        constructedQuery.minimumPricePerNight = {
             $lte: parseInt(queryParams.maxPrice).toString(),
         };
     }

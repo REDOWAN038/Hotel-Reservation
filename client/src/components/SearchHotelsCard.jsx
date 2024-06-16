@@ -54,7 +54,7 @@ const SearchHotelsCard = ({ hotel }) => {
                     </div>
                     <div className='flex flex-col items-end gap-1'>
                         <span className='font-bold'>
-                            ${hotel.pricePerNight} per night
+                            ${hotel.minimumPricePerNight} per night(min)
                         </span>
                         <Link
                             to={`/detail/${hotel._id}`}

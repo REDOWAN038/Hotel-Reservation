@@ -51,7 +51,7 @@ const getSingleHotel = async (hotelId, userId) => {
         const hotel = await hotelModel.findOne({
             _id: hotelId,
             owner: userId
-        })
+        }).populate("rooms")
 
         if (!hotel) {
             throw createError(404, "no hotel found")

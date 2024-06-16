@@ -39,6 +39,7 @@ const getSearchHotels = async (page, limit, queryParams) => {
             .sort(sortOptions)
             .limit(limit)
             .skip((page - 1) * limit)
+
         const totalHotels = await hotelModel.find(query).countDocuments()
         return {
             hotels,
@@ -56,7 +57,7 @@ const getSearchHotels = async (page, limit, queryParams) => {
 // get single hotel details
 const getHotel = async (id) => {
     try {
-        const hotel = await hotelModel.findById(id)
+        const hotel = await hotelModel.findById(id).populate("rooms")
         if (!hotel) {
             throw createError(404, "no hotel found")
         }
