@@ -12,6 +12,8 @@ import Booking from "./pages/Booking"
 import MyBookings from "./pages/MyBookings"
 import Home from "./pages/Home"
 import CreateRoom from "./pages/CreateRoom"
+import MyRooms from "./pages/MyRooms"
+import EditRoom from "./pages/EditRoom"
 
 const App = () => {
     return (
@@ -112,11 +114,31 @@ const App = () => {
                     }
                 />
                 <Route
+                    path='/my-rooms'
+                    element={
+                        <ProtectedRoute accessBy='authorized'>
+                            <Layout>
+                                <MyRooms />
+                            </Layout>
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
                     path='/create-room'
                     element={
                         <ProtectedRoute accessBy='authorized'>
                             <Layout>
                                 <CreateRoom />
+                            </Layout>
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path='/edit-room/:id'
+                    element={
+                        <ProtectedRoute accessBy='authorized'>
+                            <Layout>
+                                <EditRoom />
                             </Layout>
                         </ProtectedRoute>
                     }

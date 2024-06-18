@@ -11,7 +11,7 @@ const CreateRoom = () => {
     const handleSave = async (formData) => {
         try {
             const res = await axios.post(
-                `${import.meta.env.VITE_SERVER_URL}/api/v1/rooms`,
+                `${import.meta.env.VITE_SERVER_URL}/api/v1/my-rooms`,
                 formData,
                 { withCredentials: true }
             )
@@ -19,7 +19,7 @@ const CreateRoom = () => {
             if (res?.data?.success) {
                 setIsLoading(false)
                 showToast(res?.data?.message, "success")
-                // navigate("/my-hotels")
+                navigate("/my-rooms")
             }
         } catch (error) {
             setIsLoading(false)

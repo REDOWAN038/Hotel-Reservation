@@ -32,6 +32,13 @@ const HeaderModal = ({ isOpen, toggleModal }) => {
                             My Bookings
                         </Link>
                         <Link
+                            to='/my-rooms'
+                            className='text-gray-800'
+                            onClick={toggleModal}
+                        >
+                            My Rooms
+                        </Link>
+                        <Link
                             to='/my-hotels'
                             className='text-gray-800'
                             onClick={toggleModal}

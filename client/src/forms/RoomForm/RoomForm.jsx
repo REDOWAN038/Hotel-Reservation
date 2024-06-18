@@ -3,10 +3,12 @@ import { showToast } from "../../utils/toast"
 import axios from "axios"
 import { useForm } from "react-hook-form"
 
-const RoomForm = ({ onSave, isLoading, setIsLoading, method }) => {
+const RoomForm = ({ room, onSave, isLoading, setIsLoading, method }) => {
+    const [name, setName] = useState("")
     const {
         register,
         handleSubmit,
+        reset,
         formState: { errors },
     } = useForm()
     const [hotelData, setHotelData] = useState()
@@ -36,6 +38,11 @@ const RoomForm = ({ onSave, isLoading, setIsLoading, method }) => {
     }
 
     useEffect(() => {
+        setName(room?.hotelId?.name)
+        reset(room)
+    }, [room, reset])
+
+    useEffect(() => {
         const fetchData = async () => {
             try {
                 await getHotelData()
@@ -53,39 +60,51 @@ const RoomForm = ({ onSave, isLoading, setIsLoading, method }) => {
             onSubmit={handleSubmit(onSubmit)}
         >
             <h1 className='text-3xl font-bold mb-3'>Create Room</h1>
-            <label className='text-gray-700 text-sm font-bold flex-1'>
-                Select Hotel
-                <select
-                    className='border rounded w-full py-1 px-2 font-normal'
-                    {...register("hotelId", {
-                        required: "This field is required",
-                    })}
-                >
-                    <option value=''>Select Hotel</option>
-                    {hotelData?.map((hotel, idx) => (
-                        <option key={idx} value={hotel._id}>
-                            {hotel.name}
-                        </option>
-                    ))}
-                </select>
-                {errors.hotelId && (
-                    <span className='text-red-500'>
-                        {errors.hotelId.message}
-                    </span>
-                )}
-            </label>
+            {room ? (
+                <label className='text-gray-700 text-sm font-bold flex-1'>
+                    Hotel Name
+                    <input
+                        type='text'
+                        className='border rounded w-full py-1 px-2 font-normal'
+                        value={name}
+                        disabled
+                    ></input>
+                </label>
+            ) : (
+                <label className='text-gray-700 text-sm font-bold flex-1'>
+                    Select Hotel
+                    <select
+                        className='border rounded w-full py-1 px-2 font-normal'
+                        {...register("hotelId", {
+                            required: "This field is required",
+                        })}
+                    >
+                        <option value=''>Select Hotel</option>
+                        {hotelData?.map((hotel, idx) => (
+                            <option key={idx} value={hotel._id}>
+                                {hotel.name}
+                            </option>
+                        ))}
+                    </select>
+                    {errors.hotelId && (
+                        <span className='text-red-500'>
+                            {errors.hotelId.message}
+                        </span>
+                    )}
+                </label>
+            )}
 
             <label className='text-gray-700 text-sm font-bold flex-1'>
-                Title
+                Type
                 <input
                     type='text'
                     className='border rounded w-full py-1 px-2 font-normal'
-                    {...register("title", {
+                    {...register("type", {
                         required: "This field is required",
                     })}
                 ></input>
-                {errors.title && (
-                    <span className='text-red-500'>{errors.title.message}</span>
+                {errors.type && (
+                    <span className='text-red-500'>{errors.type.message}</span>
                 )}
             </label>
 
@@ -131,7 +150,7 @@ const RoomForm = ({ onSave, isLoading, setIsLoading, method }) => {
                             required: "This field is required",
                         })}
                     >
-                        <option value='true'>True</option>
+                        <option value=''>Select Availability</option>
                         {["true", "false"].map((value) => (
                             <option key={value} value={value}>
                                 {value}

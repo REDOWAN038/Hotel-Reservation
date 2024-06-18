@@ -31,6 +31,12 @@ const Header = () => {
                             </Link>
                             <Link
                                 className='flex items-center text-white px-3 font-bold hover:bg-blue-700 hover:rounded-md'
+                                to='/my-rooms'
+                            >
+                                My Rooms
+                            </Link>
+                            <Link
+                                className='flex items-center text-white px-3 font-bold hover:bg-blue-700 hover:rounded-md'
                                 to='/my-hotels'
                             >
                                 My Hotels

@@ -52,12 +52,12 @@ const handleGetAllRooms = async (req, res, next) => {
 // get single room
 const handleGetSingleRoom = async (req, res, next) => {
     try {
-        const hotel = await getSingleRoom(req.params.roomId, req.params.hotelId, req.user)
+        const room = await getSingleRoom(req.params.roomId, req.user)
         return successResponse(res, {
             statusCode: 200,
             message: "single room returned successfully",
             payload: {
-                hotel
+                room
             }
         })
     } catch (error) {
@@ -68,7 +68,7 @@ const handleGetSingleRoom = async (req, res, next) => {
 // update hotel
 const handleUpdateRoom = async (req, res, next) => {
     try {
-        const room = await updateRoom(req.params.roomId, req.body, req.params.hotelId, req.user)
+        const room = await updateRoom(req.params.roomId, req.body, req.user)
         return successResponse(res, {
             statusCode: 201,
             message: "room updated successfully",

@@ -97,7 +97,7 @@ const HotelDetails = () => {
                         <tbody>
                             {hotelData?.rooms?.map((room, idx) => (
                                 <tr key={idx} className='border-t'>
-                                    <td className='px-4 py-2'>{room.title}</td>
+                                    <td className='px-4 py-2'>{room.type}</td>
                                     <td className='px-4 py-2'>
                                         {room.pricePerNight}
                                     </td>

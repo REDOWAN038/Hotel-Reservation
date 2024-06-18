@@ -95,10 +95,10 @@ const validateAddHotel = [
 
 // validate create room
 const validateCreateRoom = [
-    body("title")
+    body("type")
         .trim()
         .notEmpty()
-        .withMessage("Title is required"),
+        .withMessage("Type is required"),
 
     body("description")
         .trim()

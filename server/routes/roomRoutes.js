@@ -11,16 +11,16 @@ router.post("/", isLoggedIn, validateCreateRoom, runValidation, handleCreateRoom
 // get all rooms
 router.get("/", isLoggedIn, handleGetAllRooms)
 
-// get rooms
-router.get("/:hotelId", isLoggedIn, handleGetRooms)
+// get rooms of a hotel
+router.get("/hotel-rooms/:hotelId", isLoggedIn, handleGetRooms)
 
 // get single room
-router.get("/:hotelId/:roomId", isLoggedIn, handleGetSingleRoom)
+router.get("/:roomId", isLoggedIn, handleGetSingleRoom)
 
 // delete room
 router.delete("/:hotelId/:roomId", isLoggedIn, handleDeleteRoom)
 
 // update room
-router.put("/:hotelId/:roomId", isLoggedIn, handleUpdateRoom)
+router.put("/:roomId", isLoggedIn, handleUpdateRoom)
 
 module.exports = router

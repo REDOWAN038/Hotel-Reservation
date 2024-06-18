@@ -6,7 +6,12 @@ const roomSchema = new mongoose.Schema({
         ref: "Hotel",
         required: true
     },
-    title: {
+    owner: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        required: true
+    },
+    type: {
         type: String,
         trim: true,
         required: true
