@@ -1,8 +1,13 @@
 const createError = require("http-errors")
+const Stripe = require("stripe")
 
 const userModel = require("../models/userModel")
 const hotelModel = require("../models/hotelModel")
 const roomModel = require("../models/roomModel")
+const bookingModel = require("../models/bookingModel")
+const { stripeSecretKey } = require("../src/secret")
+
+const stripe = new Stripe(stripeSecretKey)
 
 // create room
 const createRoom = async (newRoom, userId) => {
@@ -84,7 +89,7 @@ const getRooms = async (hotelId, userId) => {
 }
 
 // get single room
-const getSingleRoom = async (roomId, userId) => {
+const getSingleRoom = async (roomId) => {
     try {
         // const hotel = await hotelModel.findOne({
         //     _id: hotelId,
@@ -96,7 +101,32 @@ const getSingleRoom = async (roomId, userId) => {
         // }
         const room = await roomModel.findOne({
             _id: roomId,
-            owner: userId,
+        })
+
+
+        if (!room) {
+            throw createError(404, "no room found")
+        }
+        return room
+    } catch (error) {
+        throw error
+    }
+}
+
+// get single hotel room
+const getSingleHotelRoom = async (roomId, userId) => {
+    try {
+        // const hotel = await hotelModel.findOne({
+        //     _id: hotelId,
+        //     owner: userId
+        // })
+
+        // if (!hotel) {
+        //     throw createError(404, "no room for that hotel is found")
+        // }
+        const room = await roomModel.findOne({
+            _id: roomId,
+            owner: userId
         }).populate("hotelId")
 
 
@@ -172,11 +202,91 @@ const deleteRoom = async (roomId, hotelId, userId) => {
     }
 }
 
+// room booking payment intent
+const roomBookingPaymentIntent = async (roomId, userId, numberOfNights) => {
+    try {
+        const room = await roomModel.findById(roomId)
+        if (!room) {
+            throw createError(404, "no room found")
+        }
+
+        const totalCost = room.pricePerNight * numberOfNights;
+
+        const paymentIntent = await stripe.paymentIntents.create({
+            amount: totalCost * 100,
+            currency: "usd",
+            metadata: {
+                roomId,
+                userId
+            },
+        });
+
+        if (!paymentIntent.client_secret) {
+            throw Error("error while creating payment intent...")
+        }
+
+        const paymentIntentId = paymentIntent.id
+        const clientSecret = paymentIntent.client_secret.toString()
+
+        return {
+            paymentIntentId,
+            clientSecret,
+            totalCost,
+        }
+    } catch (error) {
+        throw error
+    }
+}
+
+// booking room
+const bookingRoom = async (roomId, hotelId, userId, newBooking) => {
+    try {
+        const paymentIntent = await stripe.paymentIntents.retrieve(newBooking.paymentIntentId);
+
+        if (!paymentIntent) {
+            throw createError(404, "payment intent not found")
+        }
+
+        if (
+            paymentIntent.metadata.roomId !== roomId ||
+            paymentIntent.metadata.userId !== userId
+        ) {
+            throw createError(400, "payment intent mismatch")
+        }
+
+        if (paymentIntent.status !== "succeeded") {
+            throw createError(400, `payment intent not succeeded. Status: ${paymentIntent.status}`)
+        }
+
+        newBooking.userId = userId
+
+        const booking = await bookingModel.create(newBooking)
+
+        const hotel = await hotelModel.findByIdAndUpdate(
+            hotelId,
+            {
+                $push: { bookings: booking },
+            }
+        );
+
+        if (!hotel) {
+            throw createError(404, "no hotel found")
+        }
+
+        await hotel.save();
+    } catch (error) {
+        throw error
+    }
+}
+
 module.exports = {
     createRoom,
     getRooms,
     getSingleRoom,
     updateRoom,
     getAllRooms,
-    deleteRoom
+    deleteRoom,
+    roomBookingPaymentIntent,
+    bookingRoom,
+    getSingleHotelRoom
 }

@@ -13,7 +13,9 @@ const EditRoom = () => {
     const getSingleRoom = async () => {
         try {
             const res = await axios.get(
-                `${import.meta.env.VITE_SERVER_URL}/api/v1/my-rooms/${id}`,
+                `${
+                    import.meta.env.VITE_SERVER_URL
+                }/api/v1/my-rooms/hotel-room/${id}`,
                 {
                     withCredentials: true,
                 }

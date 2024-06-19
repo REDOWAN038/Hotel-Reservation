@@ -94,7 +94,7 @@ const App = () => {
                     }
                 />
                 <Route
-                    path='/hotel/booking/:hotelId'
+                    path='/hotel/booking/:hotelId/:roomId'
                     element={
                         <ProtectedRoute accessBy='authorized'>
                             <Layout>

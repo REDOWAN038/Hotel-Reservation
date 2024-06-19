@@ -39,8 +39,8 @@ const GuestInfoForm = ({ hotelId, rooms }) => {
                 destination: search.destination,
                 checkIn: data.checkIn,
                 checkOut: data.checkOut,
-                adultCount: data.adultCount,
-                childCount: data.childCount,
+                adultCount: search.adultCount,
+                childCount: search.childCount,
             })
         )
         navigate("/signin", { state: { from: location } })
@@ -52,11 +52,12 @@ const GuestInfoForm = ({ hotelId, rooms }) => {
                 destination: search.destination,
                 checkIn: data.checkIn,
                 checkOut: data.checkOut,
-                adultCount: data.adultCount,
-                childCount: data.childCount,
+                adultCount: search.adultCount,
+                childCount: search.childCount,
             })
         )
-        navigate(`/hotel/booking/${hotelId}`)
+        const roomId = data?.room
+        navigate(`/hotel/booking/${hotelId}/${roomId}`)
     }
 
     return (
@@ -71,6 +72,9 @@ const GuestInfoForm = ({ hotelId, rooms }) => {
             >
                 <div className='grid grid-cols-1 gap-4 items-center'>
                     <div>
+                        <label className='text-gray-700 text-sm font-bold flex-1'>
+                            Check In
+                        </label>
                         <DatePicker
                             required
                             selected={checkIn}
@@ -88,6 +92,9 @@ const GuestInfoForm = ({ hotelId, rooms }) => {
                         />
                     </div>
                     <div>
+                        <label className='text-gray-700 text-sm font-bold flex-1'>
+                            Check Out
+                        </label>
                         <DatePicker
                             required
                             selected={checkOut}
@@ -152,7 +159,7 @@ const GuestInfoForm = ({ hotelId, rooms }) => {
                             <option value=''>Select Room</option>
                             {rooms?.map((room, idx) => (
                                 <option key={idx} value={room._id}>
-                                    {room.title}
+                                    {room.type}
                                 </option>
                             ))}
                         </select>

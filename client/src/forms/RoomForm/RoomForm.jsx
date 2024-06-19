@@ -50,7 +50,9 @@ const RoomForm = ({ room, onSave, isLoading, setIsLoading, method }) => {
                 console.log(error)
             }
         }
-        fetchData()
+        if (method === "Create") {
+            fetchData()
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 

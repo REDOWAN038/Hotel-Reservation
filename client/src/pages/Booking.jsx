@@ -13,8 +13,9 @@ const Booking = () => {
     const search = useSelector(selectAll)
     const user = useSelector(selectUser)
     const stripePromise = useSelector(selectStripePromise)
-    const { hotelId } = useParams()
+    const { hotelId, roomId } = useParams()
     const [hotelData, setHotelData] = useState([])
+    const [roomData, setRoomData] = useState([])
     const [numberOfNights, setNumberOfNights] = useState(0)
     const [paymentIntentData, setPaymentIntentData] = useState(null)
 
@@ -32,12 +33,27 @@ const Booking = () => {
         }
     }
 
+    const getRoomDetails = async () => {
+        try {
+            const res = await axios.get(
+                `${import.meta.env.VITE_SERVER_URL}/api/v1/my-rooms/${roomId}`,
+                { withCredentials: true }
+            )
+
+            if (res?.data?.success) {
+                setRoomData(res?.data?.payload?.room)
+            }
+        } catch (error) {
+            showToast(error?.response?.data?.message, "error")
+        }
+    }
+
     const getPaymentIntent = async () => {
         try {
             const res = await axios.post(
                 `${
                     import.meta.env.VITE_SERVER_URL
-                }/api/v1/hotels/booking/payment-intent/${hotelId}`,
+                }/api/v1/my-rooms/booking/payment-intent/${roomId}`,
                 {
                     numberOfNights,
                 },
@@ -56,6 +72,7 @@ const Booking = () => {
         const fetchData = async () => {
             try {
                 await getHotelDetails()
+                await getRoomDetails()
             } catch (error) {
                 console.log(error)
             }
@@ -99,10 +116,11 @@ const Booking = () => {
             <BookingDetailsSummary
                 checkIn={search.checkIn.split("T")[0]}
                 checkOut={search.checkOut.split("T")[0]}
-                adultCount={search.adultCount}
-                childCount={search.childCount}
+                // adultCount={roomData?.adultCount}
+                // childCount={roomData?.childCount}
                 numberOfNights={numberOfNights}
                 hotel={hotelData}
+                room={roomData}
             />
 
             {user && paymentIntentData && (
@@ -115,6 +133,7 @@ const Booking = () => {
                     <BookingForm
                         user={user}
                         paymentIntent={paymentIntentData}
+                        roomData={roomData}
                     />
                 </Elements>
             )}
