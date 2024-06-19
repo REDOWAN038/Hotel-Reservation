@@ -53,7 +53,7 @@ const MyBookings = () => {
                     <div className='flex flex-col gap-4 overflow-y-auto max-h-[300px]'>
                         <div className='text-2xl font-bold'>
                             <Link
-                                to={`/detail/${booking.hotelId._id}`}
+                                to={`/edit-hotel/${booking.hotelId._id}`}
                                 className='text-2xl font-bold cursor-pointer'
                             >
                                 {booking.hotelId.name}
@@ -62,6 +62,17 @@ const MyBookings = () => {
                                 {booking.hotelId.city},{" "}
                                 {booking.hotelId.country}
                             </div>
+                        </div>
+                        <div>
+                            <span className='font-bold mr-2'>Booked By:</span>
+                            <span>{booking.userId?.firstName}</span>
+                            <span> </span>
+                            <span>{booking.userId?.lastName}</span>
+                        </div>
+
+                        <div>
+                            <span className='font-bold mr-2'>Room Type: </span>
+                            <span>{booking.roomId.type}</span>
                         </div>
                         <div>
                             <span className='font-bold mr-2'>Dates: </span>

@@ -95,20 +95,25 @@ const HotelDetails = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {hotelData?.rooms?.map((room, idx) => (
-                                <tr key={idx} className='border-t'>
-                                    <td className='px-4 py-2'>{room.type}</td>
-                                    <td className='px-4 py-2'>
-                                        {room.pricePerNight}
-                                    </td>
-                                    <td className='px-4 py-2'>
-                                        {room.adultCount}
-                                    </td>
-                                    <td className='px-4 py-2'>
-                                        {room.childCount}
-                                    </td>
-                                </tr>
-                            ))}
+                            {hotelData?.rooms?.map(
+                                (room, idx) =>
+                                    room.availability && (
+                                        <tr key={idx} className='border-t'>
+                                            <td className='px-4 py-2 text-center'>
+                                                {room.type}
+                                            </td>
+                                            <td className='px-4 py-2 text-center'>
+                                                {room.pricePerNight}
+                                            </td>
+                                            <td className='px-4 py-2 text-center'>
+                                                {room.adultCount}
+                                            </td>
+                                            <td className='px-4 py-2 text-center'>
+                                                {room.childCount}
+                                            </td>
+                                        </tr>
+                                    )
+                            )}
                         </tbody>
                     </table>
                 </div>

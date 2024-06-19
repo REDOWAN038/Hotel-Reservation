@@ -151,6 +151,11 @@ const updateRoom = async (roomId, updatedRoom, userId) => {
         //     throw createError(404, "no room for that hotel is found")
         // }
 
+        if (updatedRoom.availability && updatedRoom.availability === "true") {
+            updatedRoom.checkIn = new Date().toISOString()
+            updatedRoom.checkOut = new Date().toISOString()
+        }
+
         const room = await roomModel.findOneAndUpdate(
             {
                 _id: roomId,
@@ -261,6 +266,15 @@ const bookingRoom = async (roomId, hotelId, userId, newBooking) => {
         newBooking.userId = userId
 
         const booking = await bookingModel.create(newBooking)
+
+        await roomModel.findByIdAndUpdate(
+            roomId,
+            {
+                availability: false,
+                checkIn: booking.checkIn,
+                checkOut: booking.checkOut
+            }
+        )
 
         const hotel = await hotelModel.findByIdAndUpdate(
             hotelId,

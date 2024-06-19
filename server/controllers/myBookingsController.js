@@ -1,24 +1,35 @@
 const createError = require("http-errors")
 const { successResponse } = require("../handler/responseHandler");
 const bookingModel = require("../models/bookingModel");
+const hotelModel = require("../models/hotelModel");
 
 // get my bookings
 const handleGetMyBookings = async (req, res, next) => {
     try {
-        const bookings = await bookingModel.find({ userId: req.user })
+        const hotels = await hotelModel.find({
+            owner: req.user
+        });
+
+        const hotelIds = hotels.map(hotel => hotel._id);
+
+        const bookings = await bookingModel.find({ hotelId: { $in: hotelIds } })
             .populate("hotelId")
-            .sort({ updatedAt: -1 })
+            .populate("roomId")
+            .populate("userId")
+            .sort({ updatedAt: -1 });
+
         return successResponse(res, {
             statusCode: 200,
-            message: "my bookings fetched successful",
+            message: "My bookings fetched successfully",
             payload: {
                 bookings
             }
-        })
+        });
     } catch (error) {
-        next(error)
+        next(error);
     }
 }
+
 
 module.exports = {
     handleGetMyBookings

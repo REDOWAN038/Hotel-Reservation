@@ -157,11 +157,14 @@ const GuestInfoForm = ({ hotelId, rooms }) => {
                             })}
                         >
                             <option value=''>Select Room</option>
-                            {rooms?.map((room, idx) => (
-                                <option key={idx} value={room._id}>
-                                    {room.type}
-                                </option>
-                            ))}
+                            {rooms?.map(
+                                (room, idx) =>
+                                    room.availability && (
+                                        <option key={idx} value={room._id}>
+                                            {room.type}
+                                        </option>
+                                    )
+                            )}
                         </select>
                         {errors.room && (
                             <span className='text-red-500'>

@@ -3,8 +3,10 @@ import { showToast } from "../../utils/toast"
 import axios from "axios"
 import { useForm } from "react-hook-form"
 
-const RoomForm = ({ room, onSave, isLoading, setIsLoading, method }) => {
+const RoomForm = ({ room = null, onSave, isLoading, setIsLoading, method }) => {
     const [name, setName] = useState("")
+    const [checkIn, setCheckIn] = useState("")
+    const [checkOut, setCheckOut] = useState("")
     const {
         register,
         handleSubmit,
@@ -39,6 +41,8 @@ const RoomForm = ({ room, onSave, isLoading, setIsLoading, method }) => {
 
     useEffect(() => {
         setName(room?.hotelId?.name)
+        setCheckIn(room?.checkIn?.split("T")[0])
+        setCheckOut(room?.checkOut?.split("T")[0])
         reset(room)
     }, [room, reset])
 
@@ -125,6 +129,28 @@ const RoomForm = ({ room, onSave, isLoading, setIsLoading, method }) => {
                     </span>
                 )}
             </label>
+
+            {room ? (
+                <div className='flex space-x-6'>
+                    <label className='text-gray-700 text-sm font-bold flex-1'>
+                        Check In
+                        <input
+                            type='date'
+                            value={checkIn}
+                            className='border rounded w-full py-1 px-2 font-normal'
+                        ></input>
+                    </label>
+
+                    <label className='text-gray-700 text-sm font-bold flex-1'>
+                        Check Out
+                        <input
+                            type='date'
+                            value={checkOut}
+                            className='border rounded w-full py-1 px-2 font-normal'
+                        ></input>
+                    </label>
+                </div>
+            ) : null}
 
             <div className='flex space-x-6'>
                 <label className='text-gray-700 text-sm font-bold flex-1'>

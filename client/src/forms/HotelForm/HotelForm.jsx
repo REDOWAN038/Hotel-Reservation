@@ -2,11 +2,17 @@ import { FormProvider, useForm } from "react-hook-form"
 import DetailsSection from "./DetailsSection"
 import TypeSection from "./TypeSection"
 import FacilitiesSection from "./FacilitiesSection"
-import GuestsSection from "./GuestsSection"
 import ImagesSection from "./ImagesSection"
 import { useEffect } from "react"
+import HotelRooms from "../../components/HotelRooms"
 
-const HotelForm = ({ hotel, onSave, isLoading, setIsLoading, method }) => {
+const HotelForm = ({
+    hotel = null,
+    onSave,
+    isLoading,
+    setIsLoading,
+    method,
+}) => {
     const formMethods = useForm()
     const { handleSubmit, reset } = formMethods
 
@@ -58,7 +64,7 @@ const HotelForm = ({ hotel, onSave, isLoading, setIsLoading, method }) => {
                 <DetailsSection />
                 <TypeSection />
                 <FacilitiesSection />
-                {/* <GuestsSection /> */}
+                {hotel ? <HotelRooms hotel={hotel} /> : null}
                 <ImagesSection />
                 <span className='flex justify-end'>
                     <button
