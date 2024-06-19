@@ -26,10 +26,13 @@ const HotelForm = ({
             formData.append("country", hotelData.country)
             formData.append("description", hotelData.description)
             formData.append("type", hotelData.type)
-            formData.append("pricePerNight", hotelData.pricePerNight.toString())
+            formData.append(
+                "minimumPricePerNight",
+                hotelData.minimumPricePerNight.toString()
+            )
             formData.append("starRating", hotelData.starRating.toString())
-            formData.append("adultCount", hotelData.adultCount.toString())
-            formData.append("childCount", hotelData.childCount.toString())
+            // formData.append("adultCount", hotelData.adultCount.toString())
+            // formData.append("childCount", hotelData.childCount.toString())
 
             hotelData.facilities.forEach((facility, index) => {
                 formData.append(`facilities[${index}]`, facility)

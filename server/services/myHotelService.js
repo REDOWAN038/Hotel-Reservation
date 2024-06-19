@@ -18,6 +18,7 @@ const addHotel = async (newHotel, imageFiles, userId) => {
         newHotel.imageUrls = imageUrls
         newHotel.owner = userId
 
+
         const hotel = await hotelModel.create(newHotel)
         return hotel
     } catch (error) {

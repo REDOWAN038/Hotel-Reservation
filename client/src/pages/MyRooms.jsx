@@ -5,9 +5,12 @@ import { BiMoney, BiHotel } from "react-icons/bi"
 // import { MdOutlineBedroomChild } from "react-icons/md"
 import { showToast } from "../utils/toast"
 import { Link } from "react-router-dom"
+import RoomsBookingsFilter from "../components/RoomsBookingsFilter"
 
 const MyRooms = () => {
     const [roomData, setRoomData] = useState([])
+    const [selectedRoom, setSelectedRoom] = useState([])
+    const [hotelData, setHotelData] = useState([])
 
     const getMyRooms = async () => {
         try {
@@ -19,11 +22,40 @@ const MyRooms = () => {
             )
 
             if (res?.data?.success) {
-                showToast(res?.data?.message, "success")
+                showToast("Your Rooms", "success")
                 setRoomData(res?.data?.payload?.rooms)
+                setSelectedRoom(res?.data?.payload?.rooms)
             }
         } catch (error) {
             showToast(error?.response?.data?.message, "error")
+        }
+    }
+
+    const getMyHotels = async () => {
+        try {
+            const res = await axios.get(
+                `${import.meta.env.VITE_SERVER_URL}/api/v1/my-hotels`,
+                {
+                    withCredentials: true,
+                }
+            )
+
+            if (res?.data?.success) {
+                setHotelData(res?.data?.payload?.hotels)
+            }
+        } catch (error) {
+            showToast(error?.response?.data?.message, "error")
+        }
+    }
+
+    const handleChange = (target) => {
+        if (target === "ALL") {
+            setSelectedRoom(roomData)
+        } else {
+            const filteredRoom = roomData?.filter(
+                (room) => room?.hotelId.name === target
+            )
+            setSelectedRoom(filteredRoom)
         }
     }
 
@@ -31,11 +63,13 @@ const MyRooms = () => {
         const fetchData = async () => {
             try {
                 await getMyRooms()
+                await getMyHotels()
             } catch (error) {
                 console.log(error)
             }
         }
         fetchData()
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
@@ -49,15 +83,22 @@ const MyRooms = () => {
                 <h1 className='text-xl md:text-2xl lgLtext-3xl font-bold'>
                     My Rooms
                 </h1>
-                <Link
-                    to='/create-room'
-                    className='flex bg-[#003580] text-white text-sm md:text-base lg:text-xl font-bold p-2 hover:bg-blue-800 rounded-sm'
-                >
-                    Create Room
-                </Link>
+                <div className='flex gap-2'>
+                    <RoomsBookingsFilter
+                        // selectedRoom={selectedRoom}
+                        handleChange={handleChange}
+                        hotelData={hotelData}
+                    />
+                    <Link
+                        to='/create-room'
+                        className='flex bg-[#003580] text-white text-sm md:text-base lg:text-xl font-bold p-2 hover:bg-blue-800 rounded-sm'
+                    >
+                        Create Room
+                    </Link>
+                </div>
             </span>
             <div className='grid grid-cols-1 gap-8'>
-                {roomData.map((room) => (
+                {selectedRoom?.map((room) => (
                     <div
                         key={room._id}
                         data-testid='hotel-card'

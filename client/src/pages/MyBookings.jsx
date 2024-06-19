@@ -2,9 +2,13 @@ import { useEffect, useState } from "react"
 import { showToast } from "../utils/toast"
 import axios from "axios"
 import { Link } from "react-router-dom"
+import RoomsBookingsFilter from "../components/RoomsBookingsFilter"
 
 const MyBookings = () => {
     const [bookings, setBookings] = useState([])
+    const [selectedBookings, setSelectedBookings] = useState([])
+
+    const [hotelData, setHotelData] = useState([])
 
     const handleGetBookings = async () => {
         try {
@@ -14,10 +18,40 @@ const MyBookings = () => {
             )
 
             if (res?.data?.success) {
+                showToast("Your Bookings", "success")
                 setBookings(res?.data?.payload?.bookings)
+                setSelectedBookings(res?.data?.payload?.bookings)
             }
         } catch (error) {
             showToast("something went wrong", "error")
+        }
+    }
+
+    const getMyHotels = async () => {
+        try {
+            const res = await axios.get(
+                `${import.meta.env.VITE_SERVER_URL}/api/v1/my-hotels`,
+                {
+                    withCredentials: true,
+                }
+            )
+
+            if (res?.data?.success) {
+                setHotelData(res?.data?.payload?.hotels)
+            }
+        } catch (error) {
+            showToast(error?.response?.data?.message, "error")
+        }
+    }
+
+    const handleChange = (target) => {
+        if (target === "ALL") {
+            setSelectedBookings(bookings)
+        } else {
+            const filteredBookings = bookings?.filter(
+                (booking) => booking?.hotelId.name === target
+            )
+            setSelectedBookings(filteredBookings)
         }
     }
 
@@ -25,6 +59,7 @@ const MyBookings = () => {
         const fetchData = async () => {
             try {
                 await handleGetBookings()
+                await getMyHotels()
             } catch (error) {
                 console.log(error)
             }
@@ -38,13 +73,19 @@ const MyBookings = () => {
     }
     return (
         <div className='space-y-5'>
-            <h1 className='text-3xl font-bold'>My Bookings</h1>
-            {bookings.map((booking, idx) => (
+            <span className='flex justify-between'>
+                <h1 className='text-3xl font-bold'>My Bookings</h1>
+                <RoomsBookingsFilter
+                    handleChange={handleChange}
+                    hotelData={hotelData}
+                />
+            </span>
+            {selectedBookings.map((booking, idx) => (
                 <div
                     key={idx}
                     className='grid grid-cols-1 lg:grid-cols-[1fr_3fr] border border-slate-300 rounded-lg p-8 gap-5'
                 >
-                    <div className='lg:w-full lg:h-[250px]'>
+                    <div className='lg:w-full lg:h-[300px]'>
                         <img
                             src={booking.hotelId.imageUrls[0]}
                             className='w-full h-full object-cover object-center'
@@ -68,6 +109,10 @@ const MyBookings = () => {
                             <span>{booking.userId?.firstName}</span>
                             <span> </span>
                             <span>{booking.userId?.lastName}</span>
+                        </div>
+                        <div>
+                            <span className='font-bold mr-2'>Email:</span>
+                            <span>{booking.userId?.email}</span>
                         </div>
 
                         <div>

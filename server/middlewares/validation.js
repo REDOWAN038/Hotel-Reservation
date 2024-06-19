@@ -73,9 +73,9 @@ const validateAddHotel = [
 
     body("minimumPricePerNight")
         .notEmpty()
-        .withMessage("pricePerNight is required")
+        .withMessage("minimumPricePerNight is required")
         .isNumeric()
-        .withMessage("pricePerNight must be a number"),
+        .withMessage("minimumPricePerNight must be a number"),
 
     body("starRating")
         .notEmpty()

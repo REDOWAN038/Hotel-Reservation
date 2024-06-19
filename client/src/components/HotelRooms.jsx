@@ -6,6 +6,7 @@ const HotelRooms = ({ hotel }) => {
                 <thead>
                     <tr className='bg-gray-200'>
                         <th className='px-4 py-2'>Type</th>
+                        <th className='px-4 py-2'>Description</th>
                         <th className='px-4 py-2'>Price per Night($)</th>
                         <th className='px-4 py-2'>Adult Count</th>
                         <th className='px-4 py-2'>Child Count</th>
@@ -16,6 +17,9 @@ const HotelRooms = ({ hotel }) => {
                         <tr key={idx} className='border-t'>
                             <td className='px-4 py-2 text-center'>
                                 {room.type}
+                            </td>
+                            <td className='px-4 py-2 text-center'>
+                                {room.description}
                             </td>
                             <td className='px-4 py-2 text-center'>
                                 {room.pricePerNight}
