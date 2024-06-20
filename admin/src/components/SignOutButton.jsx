@@ -12,7 +12,7 @@ const SignOutButton = () => {
     const handleLogout = async () => {
         try {
             const response = await axios.post(
-                `${import.meta.env.VITE_SERVER_URL}/api/v1/auth/logout`,
+                `${import.meta.env.VITE_SERVER_URL}/api/v1/auth/admin/logout`,
                 {},
                 { withCredentials: true }
             )
@@ -20,7 +20,7 @@ const SignOutButton = () => {
             if (response?.data?.success) {
                 dispatch(logout())
                 showToast(response?.data?.message, "success")
-                navigate("/signin")
+                navigate("/admin/signin")
             }
         } catch (error) {
             showToast("something went wrong...", "error")

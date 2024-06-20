@@ -4,7 +4,7 @@ const { createRoom, getRooms, getSingleRoom, updateRoom, getAllRooms, deleteRoom
 // create room
 const handleCreateRoom = async (req, res, next) => {
     try {
-        const room = await createRoom(req.body, req.user)
+        const room = await createRoom(req.body, req.admin)
         return successResponse(res, {
             statusCode: 201,
             message: "room created successfully",
@@ -20,7 +20,7 @@ const handleCreateRoom = async (req, res, next) => {
 // get rooms
 const handleGetRooms = async (req, res, next) => {
     try {
-        const rooms = await getRooms(req.params.hotelId, req.user)
+        const rooms = await getRooms(req.params.hotelId, req.admin)
         return successResponse(res, {
             statusCode: 200,
             message: "rooms returned successfully",
@@ -36,7 +36,7 @@ const handleGetRooms = async (req, res, next) => {
 // get all rooms
 const handleGetAllRooms = async (req, res, next) => {
     try {
-        const rooms = await getAllRooms(req.user)
+        const rooms = await getAllRooms(req.admin)
         return successResponse(res, {
             statusCode: 200,
             message: "all rooms returned successfully",
@@ -68,7 +68,7 @@ const handleGetSingleRoom = async (req, res, next) => {
 // get single room
 const handleGetSingleHotelRoom = async (req, res, next) => {
     try {
-        const room = await getSingleHotelRoom(req.params.roomId, req.user)
+        const room = await getSingleHotelRoom(req.params.roomId, req.admin)
         return successResponse(res, {
             statusCode: 200,
             message: "single room returned successfully",
@@ -84,7 +84,7 @@ const handleGetSingleHotelRoom = async (req, res, next) => {
 // update hotel
 const handleUpdateRoom = async (req, res, next) => {
     try {
-        const room = await updateRoom(req.params.roomId, req.body, req.user)
+        const room = await updateRoom(req.params.roomId, req.body, req.admin)
         return successResponse(res, {
             statusCode: 201,
             message: "room updated successfully",
@@ -100,7 +100,7 @@ const handleUpdateRoom = async (req, res, next) => {
 // delete room
 const handleDeleteRoom = async (req, res, next) => {
     try {
-        await deleteRoom(req.params.roomId, req.params.hotelId, req.user)
+        await deleteRoom(req.params.roomId, req.params.hotelId, req.admin)
         return successResponse(res, {
             statusCode: 200,
             message: "room deleted successfully",

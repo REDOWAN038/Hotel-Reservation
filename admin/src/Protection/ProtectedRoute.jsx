@@ -8,13 +8,13 @@ const ProtectedRoute = ({ children, accessBy }) => {
         if (!isLoggedIn) {
             return children
         } else {
-            return <Navigate to='/'></Navigate>
+            return <Navigate to='/admin/my-hotels'></Navigate>
         }
     } else if (accessBy === "authorized") {
         if (isLoggedIn) {
             return children
         } else {
-            return <Navigate to='/signin'></Navigate>
+            return <Navigate to='/admin/signin'></Navigate>
         }
     }
 }

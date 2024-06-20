@@ -40,8 +40,48 @@ const isLoggedOut = async (req, res, next) => {
     }
 }
 
+const isAdminLoggedIn = async (req, res, next) => {
+    try {
+        const adminAccessToken = req.cookies.adminAccessToken
+        if (!adminAccessToken) {
+            throw createError(401, "admin is not logged in")
+        }
+
+        const decoded = jwt.verify(adminAccessToken, jwtAccessKey)
+        if (!decoded) {
+            throw createError(401, "invalid token")
+        }
+
+        req.admin = decoded.user._id
+        next()
+    } catch (error) {
+        return next(error)
+    }
+}
+
+const isAdminLoggedOut = async (req, res, next) => {
+    try {
+        const adminAccessToken = req.cookies.adminAccessToken
+        if (adminAccessToken) {
+            try {
+                const decoded = jwt.verify(adminAccessToken, jwtAccessKey)
+                if (decoded) {
+                    throw createError(400, "admin already logged in")
+                }
+            } catch (error) {
+                throw error
+            }
+        }
+        next()
+    } catch (error) {
+        return next(error)
+    }
+}
+
 
 module.exports = {
     isLoggedIn,
-    isLoggedOut
+    isLoggedOut,
+    isAdminLoggedIn,
+    isAdminLoggedOut
 }

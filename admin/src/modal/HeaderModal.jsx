@@ -25,21 +25,21 @@ const HeaderModal = ({ isOpen, toggleModal }) => {
                     </div>
                     <div className='flex flex-col space-y-4'>
                         <Link
-                            to='/my-bookings'
+                            to='/admin/my-bookings'
                             className='text-gray-800'
                             onClick={toggleModal}
                         >
                             My Bookings
                         </Link>
                         <Link
-                            to='/my-rooms'
+                            to='/admin/my-rooms'
                             className='text-gray-800'
                             onClick={toggleModal}
                         >
                             My Rooms
                         </Link>
                         <Link
-                            to='/my-hotels'
+                            to='/admin/my-hotels'
                             className='text-gray-800'
                             onClick={toggleModal}
                         >

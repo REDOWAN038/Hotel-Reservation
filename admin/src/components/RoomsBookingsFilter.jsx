@@ -2,7 +2,6 @@ const RoomsBookingsFilter = ({ handleChange, hotelData }) => {
     return (
         <>
             <select
-                // value={selectedRoom}
                 onChange={(e) => handleChange(e.target.value)}
                 className='p-2 border rounded-md'
             >

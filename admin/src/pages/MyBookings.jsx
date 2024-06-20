@@ -94,7 +94,7 @@ const MyBookings = () => {
                     <div className='flex flex-col gap-4 overflow-y-auto max-h-[300px]'>
                         <div className='text-2xl font-bold'>
                             <Link
-                                to={`/edit-hotel/${booking.hotelId._id}`}
+                                to={`/admin/edit-hotel/${booking.hotelId._id}`}
                                 className='text-2xl font-bold cursor-pointer'
                             >
                                 {booking.hotelId.name}

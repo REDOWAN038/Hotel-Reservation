@@ -24,27 +24,23 @@ const HeaderModal = ({ isOpen, toggleModal }) => {
                         </button>
                     </div>
                     <div className='flex flex-col space-y-4'>
-                        <Link
+                        {/* <Link
                             to='/my-bookings'
                             className='text-gray-800'
                             onClick={toggleModal}
                         >
                             My Bookings
-                        </Link>
-                        <Link
-                            to='/my-rooms'
-                            className='text-gray-800'
-                            onClick={toggleModal}
+                        </Link> */}
+                        <a
+                            className='flex items-center text-white px-3 font-bold hover:bg-blue-700 hover:rounded-md'
+                            href={`${
+                                import.meta.env.VITE_ADMIN_URL
+                            }/admin/my-hotels`}
+                            target='_blank'
+                            rel='noopener noreferrer'
                         >
-                            My Rooms
-                        </Link>
-                        <Link
-                            to='/my-hotels'
-                            className='text-gray-800'
-                            onClick={toggleModal}
-                        >
-                            My Hotels
-                        </Link>
+                            List Your Property
+                        </a>
                         <SignOutButton />
                     </div>
                 </div>

@@ -23,24 +23,23 @@ const Header = () => {
                 <span className='hidden lg:flex gap-0 md:space-x-2'>
                     {isLoggedIn ? (
                         <>
-                            <Link
+                            {/* <Link
                                 className='flex items-center text-white px-3 font-bold hover:bg-blue-700 hover:rounded-md'
                                 to='/my-bookings'
                             >
                                 My Bookings
-                            </Link>
-                            <Link
+                            </Link> */}
+
+                            <a
                                 className='flex items-center text-white px-3 font-bold hover:bg-blue-700 hover:rounded-md'
-                                to='/my-rooms'
+                                href={`${
+                                    import.meta.env.VITE_ADMIN_URL
+                                }/admin/my-hotels`}
+                                target='_blank'
+                                rel='noopener noreferrer'
                             >
-                                My Rooms
-                            </Link>
-                            <Link
-                                className='flex items-center text-white px-3 font-bold hover:bg-blue-700 hover:rounded-md'
-                                to='/my-hotels'
-                            >
-                                My Hotels
-                            </Link>
+                                List Your Property
+                            </a>
                             <SignOutButton />
                         </>
                     ) : (

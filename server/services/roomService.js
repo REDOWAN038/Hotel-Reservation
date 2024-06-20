@@ -72,15 +72,6 @@ const getRooms = async (hotelId, userId) => {
             throw createError(404, "user does not exist")
         }
 
-        // const hotel = await hotelModel.findOne({
-        //     _id: hotelId,
-        //     owner: userId
-        // })
-
-        // if (!hotel) {
-        //     throw createError(404, "no room for that hotel is found")
-        // }
-
         const rooms = await roomModel.find({ hotelId, owner: userId })
         return rooms
     } catch (error) {
@@ -91,14 +82,6 @@ const getRooms = async (hotelId, userId) => {
 // get single room
 const getSingleRoom = async (roomId) => {
     try {
-        // const hotel = await hotelModel.findOne({
-        //     _id: hotelId,
-        //     owner: userId
-        // })
-
-        // if (!hotel) {
-        //     throw createError(404, "no room for that hotel is found")
-        // }
         const room = await roomModel.findOne({
             _id: roomId,
         })
@@ -116,14 +99,6 @@ const getSingleRoom = async (roomId) => {
 // get single hotel room
 const getSingleHotelRoom = async (roomId, userId) => {
     try {
-        // const hotel = await hotelModel.findOne({
-        //     _id: hotelId,
-        //     owner: userId
-        // })
-
-        // if (!hotel) {
-        //     throw createError(404, "no room for that hotel is found")
-        // }
         const room = await roomModel.findOne({
             _id: roomId,
             owner: userId
@@ -142,14 +117,6 @@ const getSingleHotelRoom = async (roomId, userId) => {
 // update room
 const updateRoom = async (roomId, updatedRoom, userId) => {
     try {
-        // const hotel = await hotelModel.findOne({
-        //     _id: hotelId,
-        //     owner: userId
-        // })
-
-        // if (!hotel) {
-        //     throw createError(404, "no room for that hotel is found")
-        // }
 
         if (updatedRoom.availability && updatedRoom.availability === "true") {
             updatedRoom.checkIn = new Date().toISOString()
@@ -178,14 +145,6 @@ const updateRoom = async (roomId, updatedRoom, userId) => {
 // delete room
 const deleteRoom = async (roomId, hotelId, userId) => {
     try {
-        // const hotel = await hotelModel.findOne({
-        //     _id: hotelId,
-        //     owner: userId
-        // })
-
-        // if (!hotel) {
-        //     throw createError(404, "no room for that hotel is found")
-        // }
         const room = await roomModel.findOneAndDelete({
             _id: roomId,
             owner: userId,

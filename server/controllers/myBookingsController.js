@@ -7,7 +7,7 @@ const hotelModel = require("../models/hotelModel");
 const handleGetMyBookings = async (req, res, next) => {
     try {
         const hotels = await hotelModel.find({
-            owner: req.user
+            owner: req.admin
         });
 
         const hotelIds = hotels.map(hotel => hotel._id);

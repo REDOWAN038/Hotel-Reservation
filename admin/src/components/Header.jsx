@@ -18,26 +18,26 @@ const Header = () => {
         <div className='bg-[#003580] py-6'>
             <div className='container mx-auto flex justify-between'>
                 <span className='text-xl lg:text-2xl text-white font-bold tracking-tight'>
-                    <Link to='/'>CholoGhurteJai</Link>
+                    <Link to='/admin/my-hotels'>CholoGhurteJai</Link>
                 </span>
                 <span className='hidden lg:flex gap-0 md:space-x-2'>
                     {isLoggedIn ? (
                         <>
                             <Link
                                 className='flex items-center text-white px-3 font-bold hover:bg-blue-700 hover:rounded-md'
-                                to='/my-bookings'
+                                to='/admin/my-bookings'
                             >
                                 My Bookings
                             </Link>
                             <Link
                                 className='flex items-center text-white px-3 font-bold hover:bg-blue-700 hover:rounded-md'
-                                to='/my-rooms'
+                                to='/admin/my-rooms'
                             >
                                 My Rooms
                             </Link>
                             <Link
                                 className='flex items-center text-white px-3 font-bold hover:bg-blue-700 hover:rounded-md'
-                                to='/my-hotels'
+                                to='/admin/my-hotels'
                             >
                                 My Hotels
                             </Link>
@@ -45,7 +45,7 @@ const Header = () => {
                         </>
                     ) : (
                         <Link
-                            to='/signin'
+                            to='/admin/signin'
                             className='flex bg-white items-center text-blue-600 px-3 font-bold hover:bg-gray-100 rounded-sm'
                         >
                             Sign In
@@ -59,7 +59,7 @@ const Header = () => {
                         </button>
                     ) : (
                         <Link
-                            to='/signin'
+                            to='/admin/signin'
                             className='flex bg-white items-center text-blue-600 px-3 font-bold hover:bg-gray-100 rounded-sm'
                         >
                             Sign In

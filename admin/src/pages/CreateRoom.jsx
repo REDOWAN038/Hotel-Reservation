@@ -19,7 +19,7 @@ const CreateRoom = () => {
             if (res?.data?.success) {
                 setIsLoading(false)
                 showToast(res?.data?.message, "success")
-                navigate("/my-rooms")
+                navigate("/admin/my-rooms")
             }
         } catch (error) {
             setIsLoading(false)
@@ -28,7 +28,7 @@ const CreateRoom = () => {
                 error?.response?.status === 404
             ) {
                 showToast(error?.response?.data?.message, "error")
-                navigate("/signin")
+                navigate("/admin/signin")
             } else {
                 showToast("something went wrong...", "error")
             }
