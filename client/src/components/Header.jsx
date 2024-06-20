@@ -23,12 +23,12 @@ const Header = () => {
                 <span className='hidden lg:flex gap-0 md:space-x-2'>
                     {isLoggedIn ? (
                         <>
-                            {/* <Link
+                            <Link
                                 className='flex items-center text-white px-3 font-bold hover:bg-blue-700 hover:rounded-md'
-                                to='/my-bookings'
+                                to='/bookings'
                             >
-                                My Bookings
-                            </Link> */}
+                                Bookings
+                            </Link>
 
                             <a
                                 className='flex items-center text-white px-3 font-bold hover:bg-blue-700 hover:rounded-md'
@@ -38,7 +38,7 @@ const Header = () => {
                                 target='_blank'
                                 rel='noopener noreferrer'
                             >
-                                List Your Property
+                                List Your Hotels
                             </a>
                             <SignOutButton />
                         </>

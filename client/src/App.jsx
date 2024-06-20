@@ -7,6 +7,7 @@ import Search from "./pages/Search"
 import HotelDetails from "./pages/HotelDetails"
 import Booking from "./pages/Booking"
 import Home from "./pages/Home"
+import AllBookings from "./pages/AllBookings"
 
 const App = () => {
     return (
@@ -62,6 +63,16 @@ const App = () => {
                         <ProtectedRoute accessBy='authorized'>
                             <Layout>
                                 <Booking />
+                            </Layout>
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path='/bookings'
+                    element={
+                        <ProtectedRoute accessBy='authorized'>
+                            <Layout>
+                                <AllBookings />
                             </Layout>
                         </ProtectedRoute>
                     }

@@ -36,8 +36,7 @@ const Booking = () => {
     const getRoomDetails = async () => {
         try {
             const res = await axios.get(
-                `${import.meta.env.VITE_SERVER_URL}/api/v1/my-rooms/${roomId}`,
-                { withCredentials: true }
+                `${import.meta.env.VITE_SERVER_URL}/api/v1/rooms/${roomId}`
             )
 
             if (res?.data?.success) {
@@ -53,7 +52,7 @@ const Booking = () => {
             const res = await axios.post(
                 `${
                     import.meta.env.VITE_SERVER_URL
-                }/api/v1/my-rooms/booking/payment-intent/${roomId}`,
+                }/api/v1/rooms/booking/payment-intent/${roomId}`,
                 {
                     numberOfNights,
                 },

@@ -9,6 +9,8 @@ const authRoutes = require("../routes/authRoutes")
 const myHotelRoutes = require("../routes/myHotelRoutes")
 const hotelRoutes = require("../routes/hotelRoutes")
 const myBookingsRoutes = require("../routes/myBookingsRoutes")
+const bookingsRoute = require("../routes/bookingsRoute")
+const myRoomRoutes = require("../routes/myRoomRoutes")
 const roomRoutes = require("../routes/roomRoutes")
 
 
@@ -37,7 +39,9 @@ app.use("/api/v1/auth", authRoutes)
 app.use("/api/v1/my-hotels", myHotelRoutes)
 app.use("/api/v1/hotels", hotelRoutes)
 app.use("/api/v1/my-bookings", myBookingsRoutes)
-app.use("/api/v1/my-rooms", roomRoutes)
+app.use("/api/v1/bookings", bookingsRoute)
+app.use("/api/v1/my-rooms", myRoomRoutes)
+app.use("/api/v1/rooms", roomRoutes)
 
 app.get("/test", (req, res) => {
     res.status(200).json({

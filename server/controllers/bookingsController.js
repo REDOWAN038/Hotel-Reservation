@@ -3,23 +3,16 @@ const bookingModel = require("../models/bookingModel");
 const hotelModel = require("../models/hotelModel");
 
 // get my bookings
-const handleGetMyBookings = async (req, res, next) => {
+const handleGetBookings = async (req, res, next) => {
     try {
-        const hotels = await hotelModel.find({
-            owner: req.admin
-        });
-
-        const hotelIds = hotels.map(hotel => hotel._id);
-
-        const bookings = await bookingModel.find({ hotelId: { $in: hotelIds } })
+        const bookings = await bookingModel.find({ userId: req.user })
             .populate("hotelId")
             .populate("roomId")
-            .populate("userId")
             .sort({ updatedAt: -1 });
 
         return successResponse(res, {
             statusCode: 200,
-            message: "My bookings fetched successfully",
+            message: "bookings fetched successfully",
             payload: {
                 bookings
             }
@@ -31,5 +24,5 @@ const handleGetMyBookings = async (req, res, next) => {
 
 
 module.exports = {
-    handleGetMyBookings
+    handleGetBookings
 }

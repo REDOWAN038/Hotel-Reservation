@@ -24,13 +24,13 @@ const HeaderModal = ({ isOpen, toggleModal }) => {
                         </button>
                     </div>
                     <div className='flex flex-col space-y-4'>
-                        {/* <Link
-                            to='/my-bookings'
+                        <Link
+                            to='/bookings'
                             className='text-gray-800'
                             onClick={toggleModal}
                         >
-                            My Bookings
-                        </Link> */}
+                            Bookings
+                        </Link>
                         <a
                             className='flex items-center text-white px-3 font-bold hover:bg-blue-700 hover:rounded-md'
                             href={`${
@@ -39,7 +39,7 @@ const HeaderModal = ({ isOpen, toggleModal }) => {
                             target='_blank'
                             rel='noopener noreferrer'
                         >
-                            List Your Property
+                            List Your Hotels
                         </a>
                         <SignOutButton />
                     </div>

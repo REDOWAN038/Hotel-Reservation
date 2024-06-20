@@ -50,7 +50,7 @@ const BookingForm = ({ user, paymentIntent, roomData }) => {
                 const res = await axios.post(
                     `${
                         import.meta.env.VITE_SERVER_URL
-                    }/api/v1/my-rooms/booking/${hotelId}/${roomId}`,
+                    }/api/v1/rooms/booking/${hotelId}/${roomId}`,
                     formData,
                     { withCredentials: true }
                 )
@@ -58,7 +58,7 @@ const BookingForm = ({ user, paymentIntent, roomData }) => {
                 if (res?.data?.success) {
                     setIsLoading(false)
                     showToast(res?.data?.message, "success")
-                    navigate("/my-bookings")
+                    navigate("/bookings")
                 }
             } else {
                 setIsLoading(false)
