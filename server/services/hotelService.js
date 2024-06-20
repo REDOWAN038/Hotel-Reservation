@@ -1,11 +1,8 @@
 const createError = require("http-errors")
-const Stripe = require("stripe")
 
 const hotelModel = require("../models/hotelModel")
 const { constructQuery } = require("../handler/constructQuery")
-const { stripeSecretKey } = require("../src/secret")
 
-const stripe = new Stripe(stripeSecretKey)
 
 // get hotels
 const getHotels = async () => {

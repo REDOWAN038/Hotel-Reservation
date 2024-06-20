@@ -84,7 +84,6 @@ const MyRooms = () => {
                 </h1>
                 <div className='flex gap-2'>
                     <RoomsBookingsFilter
-                        // selectedRoom={selectedRoom}
                         handleChange={handleChange}
                         hotelData={hotelData}
                     />
@@ -113,10 +112,6 @@ const MyRooms = () => {
                             {room.description}
                         </div>
                         <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2'>
-                            {/* <div className='border border-slate-300 rounded-sm p-3 flex items-center'>
-                                <BsMap className='mr-3' />
-                                {hotel.city}, {hotel.country}
-                            </div> */}
                             <div className='border border-slate-300 rounded-sm p-3 flex items-center'>
                                 <BsBuilding className='mr-1' />
                                 {room?.hotelId?.name}

@@ -13,7 +13,7 @@ const EditHotel = () => {
     const getSingleHotel = async () => {
         try {
             const res = await axios.get(
-                `${import.meta.env.VITE_SERVER_URL}/api/v1/${id}`,
+                `${import.meta.env.VITE_SERVER_URL}/api/v1/my-hotels/${id}`,
                 {
                     withCredentials: true,
                 }

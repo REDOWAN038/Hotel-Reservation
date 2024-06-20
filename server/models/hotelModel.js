@@ -41,6 +41,11 @@ const hotelSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
+    availableRooms: {
+        type: Number,
+        required: true,
+        default: 0
+    },
     starRating: {
         type: Number,
         required: true,

@@ -1,24 +1,16 @@
 const constructQuery = (queryParams) => {
     let constructedQuery = {};
 
+    constructedQuery.availableRooms = {
+        $gte: 1,
+    };
+
     if (queryParams.destination) {
         constructedQuery.$or = [
             { city: new RegExp(queryParams.destination, "i") },
             { country: new RegExp(queryParams.destination, "i") },
         ];
     }
-
-    // if (queryParams.adultCount) {
-    //     constructedQuery.adultCount = {
-    //         $gte: parseInt(queryParams.adultCount),
-    //     };
-    // }
-
-    // if (queryParams.childCount) {
-    //     constructedQuery.childCount = {
-    //         $gte: parseInt(queryParams.childCount),
-    //     };
-    // }
 
     if (queryParams.facilities) {
         constructedQuery.facilities = {

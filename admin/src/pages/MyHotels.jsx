@@ -19,7 +19,7 @@ const MyHotels = () => {
             )
 
             if (res?.data?.success) {
-                showToast(res?.data?.message, "success")
+                showToast("Your Hotels", "success")
                 setHotelData(res?.data?.payload?.hotels)
             }
         } catch (error) {

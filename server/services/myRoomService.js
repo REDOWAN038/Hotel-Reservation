@@ -99,6 +99,16 @@ const updateRoom = async (roomId, updatedRoom, userId) => {
         if (updatedRoom.availability && updatedRoom.availability === "true") {
             updatedRoom.checkIn = new Date().toISOString()
             updatedRoom.checkOut = new Date().toISOString()
+
+            const room = await roomModel.findById(roomId)
+
+            await hotelModel.findByIdAndUpdate(
+                room.hotelId,
+                {
+                    $inc: { availableRooms: 1 }
+                },
+                { new: true }
+            );
         }
 
         const room = await roomModel.findOneAndUpdate(

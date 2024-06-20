@@ -98,7 +98,9 @@ const bookingRoom = async (roomId, hotelId, userId, newBooking) => {
             hotelId,
             {
                 $push: { bookings: booking },
-            }
+                $inc: { availableRooms: -1 }
+            },
+            { new: true }
         );
 
         if (!hotel) {

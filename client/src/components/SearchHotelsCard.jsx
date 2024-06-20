@@ -38,27 +38,34 @@ const SearchHotelsCard = ({ hotel }) => {
                 </div>
 
                 <div className='grid grid-cols-2 items-end whitespace-nowrap'>
-                    <div className='flex gap-1 items-center'>
-                        {hotel.facilities.slice(0, 2).map((facility, idx) => (
-                            <span
-                                key={idx}
-                                className='bg-slate-300 p-2 rounded-lg font-bold text-xs whitespace-nowrap'
-                            >
-                                {facility}
-                            </span>
-                        ))}
-                        <span className='text-sm'>
-                            {hotel.facilities.length > 2 &&
-                                `+${hotel.facilities.length - 2} more`}
+                    <div className='flex flex-col items-start gap-1'>
+                        <span className='text-base font-bold text-red-600'>
+                            {hotel.availableRooms} rooms available
                         </span>
+                        <div className='flex gap-1 items-center'>
+                            {hotel.facilities
+                                .slice(0, 2)
+                                .map((facility, idx) => (
+                                    <span
+                                        key={idx}
+                                        className='bg-slate-300 p-2 rounded-lg font-bold text-xs whitespace-nowrap'
+                                    >
+                                        {facility}
+                                    </span>
+                                ))}
+                            <span className='text-sm'>
+                                {hotel.facilities.length > 2 &&
+                                    `+${hotel.facilities.length - 2} more`}
+                            </span>
+                        </div>
                     </div>
                     <div className='flex flex-col items-end gap-1'>
-                        <span className='font-bold'>
+                        <span className='text-sm font-bold'>
                             ${hotel.minimumPricePerNight} per night(min)
                         </span>
                         <Link
                             to={`/detail/${hotel._id}`}
-                            className='bg-[#003580] text-white h-full p-2 font-bold text-sm md:text-base lg:text-xl max-w-fit hover:bg-blue-800'
+                            className='bg-[#003580] text-white h-full p-2 font-bold text-sm md:text-base lg:text-base max-w-fit hover:bg-blue-800'
                         >
                             View More
                         </Link>
