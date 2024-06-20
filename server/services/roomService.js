@@ -1,5 +1,6 @@
 const createError = require("http-errors")
 const Stripe = require("stripe")
+const mongoose = require('mongoose');
 
 const hotelModel = require("../models/hotelModel")
 const roomModel = require("../models/roomModel")
@@ -63,6 +64,8 @@ const roomBookingPaymentIntent = async (roomId, userId, numberOfNights) => {
 
 // booking room
 const bookingRoom = async (roomId, hotelId, userId, newBooking) => {
+    const session = await mongoose.startSession();
+    session.startTransaction();
     try {
         const paymentIntent = await stripe.paymentIntents.retrieve(newBooking.paymentIntentId);
 
@@ -83,7 +86,7 @@ const bookingRoom = async (roomId, hotelId, userId, newBooking) => {
 
         newBooking.userId = userId
 
-        const booking = await bookingModel.create(newBooking)
+        const [booking] = await bookingModel.create([newBooking], { session })
 
         await roomModel.findByIdAndUpdate(
             roomId,
@@ -91,25 +94,29 @@ const bookingRoom = async (roomId, hotelId, userId, newBooking) => {
                 availability: false,
                 checkIn: booking.checkIn,
                 checkOut: booking.checkOut
-            }
+            },
+            { new: true, session }
         )
 
         const hotel = await hotelModel.findByIdAndUpdate(
             hotelId,
             {
-                $push: { bookings: booking },
+                $push: { bookings: booking._id },
                 $inc: { availableRooms: -1 }
             },
-            { new: true }
+            { new: true, session }
         );
 
         if (!hotel) {
             throw createError(404, "no hotel found")
         }
 
-        await hotel.save();
+        await session.commitTransaction();
     } catch (error) {
-        throw error
+        await session.abortTransaction();
+        throw error;
+    } finally {
+        session.endSession();
     }
 }
 

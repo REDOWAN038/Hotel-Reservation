@@ -1,5 +1,5 @@
 const { successResponse } = require("../handler/responseHandler");
-const { createRoom, getRooms, updateRoom, getAllRooms, deleteRoom, getSingleRoom } = require("../services/myRoomService");
+const { createRoom, updateRoom, getAllRooms, deleteRoom, getSingleRoom } = require("../services/myRoomService");
 
 // create room
 const handleCreateRoom = async (req, res, next) => {
@@ -10,22 +10,6 @@ const handleCreateRoom = async (req, res, next) => {
             message: "room created successfully",
             payload: {
                 room
-            }
-        })
-    } catch (error) {
-        next(error)
-    }
-}
-
-// get rooms
-const handleGetRooms = async (req, res, next) => {
-    try {
-        const rooms = await getRooms(req.params.hotelId, req.admin)
-        return successResponse(res, {
-            statusCode: 200,
-            message: "rooms returned successfully",
-            payload: {
-                rooms,
             }
         })
     } catch (error) {
@@ -84,7 +68,7 @@ const handleUpdateRoom = async (req, res, next) => {
 // delete room
 const handleDeleteRoom = async (req, res, next) => {
     try {
-        await deleteRoom(req.params.roomId, req.params.hotelId, req.admin)
+        await deleteRoom(req.params.roomId, req.admin)
         return successResponse(res, {
             statusCode: 200,
             message: "room deleted successfully",
@@ -96,7 +80,6 @@ const handleDeleteRoom = async (req, res, next) => {
 
 module.exports = {
     handleCreateRoom,
-    handleGetRooms,
     handleGetSingleRoom,
     handleUpdateRoom,
     handleGetAllRooms,

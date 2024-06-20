@@ -15,7 +15,7 @@ router.get("/", isAdminLoggedIn, handleGetAllRooms)
 router.get("/:roomId", isAdminLoggedIn, handleGetSingleRoom)
 
 // delete room
-router.delete("/:hotelId/:roomId", isAdminLoggedIn, handleDeleteRoom)
+router.delete("/:roomId", isAdminLoggedIn, handleDeleteRoom)
 
 // update room
 router.put("/:roomId", isAdminLoggedIn, handleUpdateRoom)
