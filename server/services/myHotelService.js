@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const userModel = require("../models/userModel")
 const hotelModel = require("../models/hotelModel")
 const { cloudFolder } = require("../src/secret")
-const { uploadToCloudinary } = require("../handler/uploadToCloudinary")
+const { uploadToCloudinary, deleteFromCloudinary } = require("../handler/uploadToCloudinary")
 const bookingModel = require("../models/bookingModel")
 const roomModel = require("../models/roomModel")
 
@@ -109,6 +109,7 @@ const deleteHotel = async (hotelId, userId) => {
             throw createError(405, "some rooms are currently booked");
         }
 
+        await deleteFromCloudinary(hotel.imageUrls, cloudFolder);
         await bookingModel.deleteMany({ hotelId }).session(session);
         await roomModel.deleteMany({ hotelId }).session(session);
         await hotelModel.deleteOne({

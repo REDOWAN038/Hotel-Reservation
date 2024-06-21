@@ -14,6 +14,19 @@ const uploadToCloudinary = async (imageFiles, cloudFolder) => {
     return imageUrls;
 };
 
+const deleteFromCloudinary = async (imageUrls, cloudFolder) => {
+    const publicIds = imageUrls.map(url => {
+        const parts = url.split('/');
+        const publicIdWithExtension = parts.slice(-1)[0];
+        const publicId = publicIdWithExtension.split(".")[0];
+        return publicId;
+    });
+
+    const deletePromises = publicIds.map(publicId => cloudinary.uploader.destroy(`${cloudFolder}/${publicId}`));
+    await Promise.all(deletePromises);
+};
+
 module.exports = {
-    uploadToCloudinary
+    uploadToCloudinary,
+    deleteFromCloudinary
 }
