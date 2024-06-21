@@ -31,23 +31,20 @@ const hotelSchema = new mongoose.Schema({
         trim: true,
         required: true
     },
-    adultCount: {
-        type: Number,
-        required: true
-    },
-    childCount: {
-        type: Number,
-        required: true
-    },
     facilities: [
         {
             type: String,
             required: true
         }
     ],
-    pricePerNight: {
+    minimumPricePerNight: {
         type: Number,
         required: true
+    },
+    availableRooms: {
+        type: Number,
+        required: true,
+        default: 0
     },
     starRating: {
         type: Number,
@@ -65,6 +62,12 @@ const hotelSchema = new mongoose.Schema({
         {
             type: mongoose.Schema.Types.ObjectId,
             ref: "Booking",
+        }
+    ],
+    rooms: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Room",
         }
     ]
 }, { timestamps: true })

@@ -38,7 +38,7 @@ const EditHotel = () => {
             if (res?.data?.success) {
                 setIsLoading(false)
                 showToast(res?.data?.message, "success")
-                navigate("/my-hotels")
+                navigate("/admin/my-hotels")
             }
         } catch (error) {
             setIsLoading(false)
@@ -47,7 +47,7 @@ const EditHotel = () => {
                 error?.response?.status === 404
             ) {
                 showToast(error?.response?.data?.message, "error")
-                navigate("/signin")
+                navigate("/admin/signin")
             } else {
                 showToast("something went wrong...", "error")
             }

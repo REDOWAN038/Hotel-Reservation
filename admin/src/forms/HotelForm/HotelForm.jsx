@@ -2,11 +2,17 @@ import { FormProvider, useForm } from "react-hook-form"
 import DetailsSection from "./DetailsSection"
 import TypeSection from "./TypeSection"
 import FacilitiesSection from "./FacilitiesSection"
-import GuestsSection from "./GuestsSection"
 import ImagesSection from "./ImagesSection"
 import { useEffect } from "react"
+import HotelRooms from "../../components/HotelRooms"
 
-const HotelForm = ({ hotel, onSave, isLoading, setIsLoading, method }) => {
+const HotelForm = ({
+    hotel = null,
+    onSave,
+    isLoading,
+    setIsLoading,
+    method,
+}) => {
     const formMethods = useForm()
     const { handleSubmit, reset } = formMethods
 
@@ -20,10 +26,13 @@ const HotelForm = ({ hotel, onSave, isLoading, setIsLoading, method }) => {
             formData.append("country", hotelData.country)
             formData.append("description", hotelData.description)
             formData.append("type", hotelData.type)
-            formData.append("pricePerNight", hotelData.pricePerNight.toString())
+            formData.append(
+                "minimumPricePerNight",
+                hotelData.minimumPricePerNight.toString()
+            )
             formData.append("starRating", hotelData.starRating.toString())
-            formData.append("adultCount", hotelData.adultCount.toString())
-            formData.append("childCount", hotelData.childCount.toString())
+            // formData.append("adultCount", hotelData.adultCount.toString())
+            // formData.append("childCount", hotelData.childCount.toString())
 
             hotelData.facilities.forEach((facility, index) => {
                 formData.append(`facilities[${index}]`, facility)
@@ -58,7 +67,7 @@ const HotelForm = ({ hotel, onSave, isLoading, setIsLoading, method }) => {
                 <DetailsSection />
                 <TypeSection />
                 <FacilitiesSection />
-                <GuestsSection />
+                {hotel ? <HotelRooms hotel={hotel} /> : null}
                 <ImagesSection />
                 <span className='flex justify-end'>
                     <button

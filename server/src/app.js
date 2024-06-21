@@ -9,13 +9,20 @@ const authRoutes = require("../routes/authRoutes")
 const myHotelRoutes = require("../routes/myHotelRoutes")
 const hotelRoutes = require("../routes/hotelRoutes")
 const myBookingsRoutes = require("../routes/myBookingsRoutes")
+const bookingsRoute = require("../routes/bookingsRoute")
+const myRoomRoutes = require("../routes/myRoomRoutes")
+const roomRoutes = require("../routes/roomRoutes")
 
 
 const { errorResponse } = require("../handler/responseHandler")
 
 // middlewares
 app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5173');
+    const allowedOrigins = ['http://localhost:5173', 'http://localhost:5174'];
+    const origin = req.headers.origin;
+    if (allowedOrigins.includes(origin)) {
+        res.setHeader('Access-Control-Allow-Origin', origin);
+    }
     res.setHeader('Access-Control-Allow-Methods', "GET, POST, PUT, DELETE");
     res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
     res.setHeader('Access-Control-Allow-Credentials', 'true'); // Allow credentials (cookies)
@@ -32,6 +39,9 @@ app.use("/api/v1/auth", authRoutes)
 app.use("/api/v1/my-hotels", myHotelRoutes)
 app.use("/api/v1/hotels", hotelRoutes)
 app.use("/api/v1/my-bookings", myBookingsRoutes)
+app.use("/api/v1/bookings", bookingsRoute)
+app.use("/api/v1/my-rooms", myRoomRoutes)
+app.use("/api/v1/rooms", roomRoutes)
 
 app.get("/test", (req, res) => {
     res.status(200).json({

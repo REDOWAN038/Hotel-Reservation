@@ -11,6 +11,11 @@ const bookingSchema = new mongoose.Schema({
         ref: "Hotel",
         required: true
     },
+    roomId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Room",
+        required: true
+    },
     firstName: {
         type: String,
         trim: true,

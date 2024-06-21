@@ -1,10 +1,11 @@
 const BookingDetailsSummary = ({
     checkIn,
     checkOut,
-    adultCount,
-    childCount,
+    // adultCount,
+    // childCount,
     numberOfNights,
     hotel,
+    room,
 }) => {
     return (
         <div className='grid gap-4 rounded-lg border border-slate-300 p-5 h-fit'>
@@ -23,6 +24,10 @@ const BookingDetailsSummary = ({
                     <div className='font-bold'> {checkOut}</div>
                 </div>
             </div>
+            <div className='border-t py-2'>
+                Room Type:
+                <div className='font-bold'>{room?.type} </div>
+            </div>
             <div className='border-t border-b py-2'>
                 Total length of stay:
                 <div className='font-bold'>{numberOfNights} nights</div>
@@ -31,7 +36,7 @@ const BookingDetailsSummary = ({
             <div>
                 Guests{" "}
                 <div className='font-bold'>
-                    {adultCount} adults & {childCount} children
+                    {room?.adultCount} adults & {room?.childCount} children
                 </div>
             </div>
         </div>

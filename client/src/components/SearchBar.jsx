@@ -102,13 +102,10 @@ const SearchBar = () => {
                     wrapperClassName='min-w-full'
                 />
             </div>
-            <div className='flex gap-1'>
-                <button className='w-full bg-[#003580] text-white h-full p-2 font-bold text-xl hover:bg-blue-800'>
+            <div>
+                <button className='w-full bg-[#003580] text-white p-2 font-bold text-xl hover:bg-blue-800'>
                     Search
                 </button>
-                {/* <button className='w-1/3 bg-red-600 text-white h-full p-2 font-bold text-xl hover:bg-red-500'>
-                    Clear
-                </button> */}
             </div>
         </form>
     )

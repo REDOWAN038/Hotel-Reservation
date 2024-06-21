@@ -3,17 +3,18 @@ import { showToast } from "../utils/toast"
 import axios from "axios"
 import { Link } from "react-router-dom"
 
-const MyBookings = () => {
+const AllBookings = () => {
     const [bookings, setBookings] = useState([])
 
     const handleGetBookings = async () => {
         try {
             const res = await axios.get(
-                `${import.meta.env.VITE_SERVER_URL}/api/v1/my-bookings`,
+                `${import.meta.env.VITE_SERVER_URL}/api/v1/bookings`,
                 { withCredentials: true }
             )
 
             if (res?.data?.success) {
+                showToast("Your Bookings", "success")
                 setBookings(res?.data?.payload?.bookings)
             }
         } catch (error) {
@@ -36,15 +37,18 @@ const MyBookings = () => {
     if (!bookings) {
         return <></>
     }
+
     return (
         <div className='space-y-5'>
-            <h1 className='text-3xl font-bold'>My Bookings</h1>
+            <span className='flex justify-between'>
+                <h1 className='text-3xl font-bold'>My Bookings</h1>
+            </span>
             {bookings.map((booking, idx) => (
                 <div
                     key={idx}
                     className='grid grid-cols-1 lg:grid-cols-[1fr_3fr] border border-slate-300 rounded-lg p-8 gap-5'
                 >
-                    <div className='lg:w-full lg:h-[250px]'>
+                    <div className='lg:w-full lg:h-[220px]'>
                         <img
                             src={booking.hotelId.imageUrls[0]}
                             className='w-full h-full object-cover object-center'
@@ -62,6 +66,11 @@ const MyBookings = () => {
                                 {booking.hotelId.city},{" "}
                                 {booking.hotelId.country}
                             </div>
+                        </div>
+
+                        <div>
+                            <span className='font-bold mr-2'>Room Type: </span>
+                            <span>{booking.roomId.type}</span>
                         </div>
                         <div>
                             <span className='font-bold mr-2'>Dates: </span>
@@ -88,4 +97,4 @@ const MyBookings = () => {
     )
 }
 
-export default MyBookings
+export default AllBookings

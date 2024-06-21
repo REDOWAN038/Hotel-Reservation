@@ -7,11 +7,11 @@ import { showToast } from "../../utils/toast"
 import { useState } from "react"
 import axios from "axios"
 
-const BookingForm = ({ user, paymentIntent }) => {
+const BookingForm = ({ user, paymentIntent, roomData }) => {
     const stripe = useStripe()
     const elements = useElements()
     const search = useSelector(selectAll)
-    const { hotelId } = useParams()
+    const { hotelId, roomId } = useParams()
     const [isLoading, setIsLoading] = useState(false)
     const navigate = useNavigate()
 
@@ -20,11 +20,12 @@ const BookingForm = ({ user, paymentIntent }) => {
             firstName: user?.firstName,
             lastName: user?.lastName,
             email: user?.email,
-            adultCount: search.adultCount,
-            childCount: search.childCount,
+            adultCount: roomData?.adultCount,
+            childCount: roomData?.childCount,
             checkIn: search.checkIn,
             checkOut: search.checkOut,
             hotelId: hotelId,
+            roomId: roomId,
             totalCost: paymentIntent?.totalCost,
             paymentIntentId: paymentIntent?.paymentIntentId,
         },
@@ -49,7 +50,7 @@ const BookingForm = ({ user, paymentIntent }) => {
                 const res = await axios.post(
                     `${
                         import.meta.env.VITE_SERVER_URL
-                    }/api/v1/hotels/booking/${hotelId}`,
+                    }/api/v1/rooms/booking/${hotelId}/${roomId}`,
                     formData,
                     { withCredentials: true }
                 )
@@ -57,7 +58,7 @@ const BookingForm = ({ user, paymentIntent }) => {
                 if (res?.data?.success) {
                     setIsLoading(false)
                     showToast(res?.data?.message, "success")
-                    navigate("/my-bookings")
+                    navigate("/bookings")
                 }
             } else {
                 setIsLoading(false)
@@ -133,7 +134,7 @@ const BookingForm = ({ user, paymentIntent }) => {
                     type='submit'
                     className='bg-[#003580] text-white p-2 font-bold hover:bg-blue-800 text-md disabled:bg-gray-500'
                 >
-                    {isLoading ? "Saving..." : "Confirm Booking"}
+                    {isLoading ? "Please Wait..." : "Confirm Booking"}
                 </button>
             </div>
         </form>

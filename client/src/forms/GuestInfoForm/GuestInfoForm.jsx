@@ -6,7 +6,7 @@ import { selectAll } from "../../features/search/selector"
 import { selectIsLoggedIn } from "../../features/auth/selector"
 import { setAll } from "../../features/search/searchSlice"
 
-const GuestInfoForm = ({ hotelId, pricePerNight, adultCount, childCount }) => {
+const GuestInfoForm = ({ hotelId, rooms }) => {
     const dispatch = useDispatch()
     const search = useSelector(selectAll)
     const isLoggedIn = useSelector(selectIsLoggedIn)
@@ -23,8 +23,6 @@ const GuestInfoForm = ({ hotelId, pricePerNight, adultCount, childCount }) => {
         defaultValues: {
             checkIn: search.checkIn,
             checkOut: search.checkOut,
-            adultCount: search.adultCount,
-            childCount: search.childCount,
         },
     })
 
@@ -41,8 +39,8 @@ const GuestInfoForm = ({ hotelId, pricePerNight, adultCount, childCount }) => {
                 destination: search.destination,
                 checkIn: data.checkIn,
                 checkOut: data.checkOut,
-                adultCount: data.adultCount,
-                childCount: data.childCount,
+                adultCount: search.adultCount,
+                childCount: search.childCount,
             })
         )
         navigate("/signin", { state: { from: location } })
@@ -54,16 +52,17 @@ const GuestInfoForm = ({ hotelId, pricePerNight, adultCount, childCount }) => {
                 destination: search.destination,
                 checkIn: data.checkIn,
                 checkOut: data.checkOut,
-                adultCount: data.adultCount,
-                childCount: data.childCount,
+                adultCount: search.adultCount,
+                childCount: search.childCount,
             })
         )
-        navigate(`/hotel/booking/${hotelId}`)
+        const roomId = data?.room
+        navigate(`/hotel/booking/${hotelId}/${roomId}`)
     }
 
     return (
         <div className='flex flex-col p-4 bg-blue-200 gap-4'>
-            <h3 className='text-md font-bold'>${pricePerNight}</h3>
+            {/* <h3 className='text-md font-bold'>${pricePerNight}</h3> */}
             <form
                 onSubmit={
                     isLoggedIn
@@ -73,6 +72,9 @@ const GuestInfoForm = ({ hotelId, pricePerNight, adultCount, childCount }) => {
             >
                 <div className='grid grid-cols-1 gap-4 items-center'>
                     <div>
+                        <label className='text-gray-700 text-sm font-bold flex-1'>
+                            Check In
+                        </label>
                         <DatePicker
                             required
                             selected={checkIn}
@@ -90,6 +92,9 @@ const GuestInfoForm = ({ hotelId, pricePerNight, adultCount, childCount }) => {
                         />
                     </div>
                     <div>
+                        <label className='text-gray-700 text-sm font-bold flex-1'>
+                            Check Out
+                        </label>
                         <DatePicker
                             required
                             selected={checkOut}
@@ -106,7 +111,7 @@ const GuestInfoForm = ({ hotelId, pricePerNight, adultCount, childCount }) => {
                             wrapperClassName='min-w-full'
                         />
                     </div>
-                    <div className='flex bg-white px-2 py-1'>
+                    {/* <div className='flex bg-white px-2 py-1'>
                         <label className='items-center flex w-1/2'>
                             Adults:
                             <input
@@ -142,7 +147,31 @@ const GuestInfoForm = ({ hotelId, pricePerNight, adultCount, childCount }) => {
                                 {errors.adultCount.message}
                             </span>
                         )}
-                    </div>
+                    </div> */}
+                    <label className='text-gray-700 text-sm font-bold flex-1'>
+                        Select Room
+                        <select
+                            className='border rounded w-full py-1 px-2 font-normal'
+                            {...register("room", {
+                                required: "This field is required",
+                            })}
+                        >
+                            <option value=''>Select Room</option>
+                            {rooms?.map(
+                                (room, idx) =>
+                                    room.availability && (
+                                        <option key={idx} value={room._id}>
+                                            {room.type}
+                                        </option>
+                                    )
+                            )}
+                        </select>
+                        {errors.room && (
+                            <span className='text-red-500'>
+                                {errors.room.message}
+                            </span>
+                        )}
+                    </label>
                     {isLoggedIn ? (
                         <button className='bg-[#003580] text-white h-full p-2 font-bold hover:bg-blue-800 text-xl'>
                             Book Now

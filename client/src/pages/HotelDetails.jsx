@@ -75,18 +75,58 @@ const HotelDetails = () => {
                 ))}
             </div>
 
+            {/* <div className='whitespace-pre-line'>{hotelData?.description}</div> */}
+
             <div className='grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-3'>
                 <div className='whitespace-pre-line'>
                     {hotelData?.description}
                 </div>
+
                 <div className='h-fit'>
                     <GuestInfoForm
                         hotelId={hotelData?._id}
-                        pricePerNight={hotelData?.pricePerNight}
-                        adultCount={hotelData?.adultCount}
-                        childCount={hotelData?.childCount}
+                        rooms={hotelData?.rooms}
                     />
                 </div>
+            </div>
+
+            <div>
+                <h1 className='text-lg font-bold mb-3'>Available Rooms</h1>
+                <table className='table-auto w-full'>
+                    <thead>
+                        <tr className='bg-gray-200'>
+                            <th className='px-4 py-2'>Type</th>
+                            <th className='px-4 py-2'>Description</th>
+                            <th className='px-4 py-2'>Price per Night($)</th>
+                            <th className='px-4 py-2'>Adult Count</th>
+                            <th className='px-4 py-2'>Child Count</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {hotelData?.rooms?.map(
+                            (room, idx) =>
+                                room.availability && (
+                                    <tr key={idx} className='border-t'>
+                                        <td className='px-4 py-2 text-center'>
+                                            {room.type}
+                                        </td>
+                                        <td className='px-4 py-2 text-center'>
+                                            {room.description}
+                                        </td>
+                                        <td className='px-4 py-2 text-center'>
+                                            {room.pricePerNight}
+                                        </td>
+                                        <td className='px-4 py-2 text-center'>
+                                            {room.adultCount}
+                                        </td>
+                                        <td className='px-4 py-2 text-center'>
+                                            {room.childCount}
+                                        </td>
+                                    </tr>
+                                )
+                        )}
+                    </tbody>
+                </table>
             </div>
         </div>
     )

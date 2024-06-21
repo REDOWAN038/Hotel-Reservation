@@ -1,17 +1,17 @@
 import { useState } from "react"
-import HotelForm from "../forms/HotelForm/HotelForm"
-import { showToast } from "../utils/toast"
-import axios from "axios"
+import RoomForm from "../forms/RoomForm/RoomForm"
 import { useNavigate } from "react-router-dom"
+import axios from "axios"
+import { showToast } from "../utils/toast"
 
-const AddHotel = () => {
+const CreateRoom = () => {
     const [isLoading, setIsLoading] = useState(false)
     const navigate = useNavigate()
 
     const handleSave = async (formData) => {
         try {
             const res = await axios.post(
-                `${import.meta.env.VITE_SERVER_URL}/api/v1/my-hotels`,
+                `${import.meta.env.VITE_SERVER_URL}/api/v1/my-rooms`,
                 formData,
                 { withCredentials: true }
             )
@@ -19,7 +19,7 @@ const AddHotel = () => {
             if (res?.data?.success) {
                 setIsLoading(false)
                 showToast(res?.data?.message, "success")
-                navigate("/my-hotels")
+                navigate("/admin/my-rooms")
             }
         } catch (error) {
             setIsLoading(false)
@@ -28,22 +28,23 @@ const AddHotel = () => {
                 error?.response?.status === 404
             ) {
                 showToast(error?.response?.data?.message, "error")
-                navigate("/signin")
+                navigate("/admin/signin")
             } else {
                 showToast("something went wrong...", "error")
             }
         }
     }
+
     return (
         <>
-            <HotelForm
+            <RoomForm
                 onSave={handleSave}
                 isLoading={isLoading}
                 setIsLoading={setIsLoading}
-                method='Add'
+                method='Create'
             />
         </>
     )
 }
 
-export default AddHotel
+export default CreateRoom

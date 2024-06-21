@@ -25,16 +25,21 @@ const Header = () => {
                         <>
                             <Link
                                 className='flex items-center text-white px-3 font-bold hover:bg-blue-700 hover:rounded-md'
-                                to='/my-bookings'
+                                to='/bookings'
                             >
-                                My Bookings
+                                Bookings
                             </Link>
-                            <Link
+
+                            <a
                                 className='flex items-center text-white px-3 font-bold hover:bg-blue-700 hover:rounded-md'
-                                to='/my-hotels'
+                                href={`${
+                                    import.meta.env.VITE_ADMIN_URL
+                                }/admin/my-hotels`}
+                                target='_blank'
+                                rel='noopener noreferrer'
                             >
-                                My Hotels
-                            </Link>
+                                List Your Hotels
+                            </a>
                             <SignOutButton />
                         </>
                     ) : (

@@ -3,14 +3,11 @@ import Layout from "./layout/Layout"
 import SignUp from "./pages/SignUp"
 import ProtectedRoute from "./Protection/ProtectedRoute"
 import SignIn from "./pages/SignIn"
-import AddHotel from "./pages/AddHotel"
-import MyHotels from "./pages/MyHotels"
-import EditHotel from "./pages/EditHotel"
 import Search from "./pages/Search"
 import HotelDetails from "./pages/HotelDetails"
 import Booking from "./pages/Booking"
-import MyBookings from "./pages/MyBookings"
 import Home from "./pages/Home"
+import AllBookings from "./pages/AllBookings"
 
 const App = () => {
     return (
@@ -61,37 +58,7 @@ const App = () => {
                     }
                 />
                 <Route
-                    path='/my-hotels'
-                    element={
-                        <ProtectedRoute accessBy='authorized'>
-                            <Layout>
-                                <MyHotels />
-                            </Layout>
-                        </ProtectedRoute>
-                    }
-                />
-                <Route
-                    path='/add-hotels'
-                    element={
-                        <ProtectedRoute accessBy='authorized'>
-                            <Layout>
-                                <AddHotel />
-                            </Layout>
-                        </ProtectedRoute>
-                    }
-                />
-                <Route
-                    path='/edit-hotel/:id'
-                    element={
-                        <ProtectedRoute accessBy='authorized'>
-                            <Layout>
-                                <EditHotel />
-                            </Layout>
-                        </ProtectedRoute>
-                    }
-                />
-                <Route
-                    path='/hotel/booking/:hotelId'
+                    path='/hotel/booking/:hotelId/:roomId'
                     element={
                         <ProtectedRoute accessBy='authorized'>
                             <Layout>
@@ -101,11 +68,11 @@ const App = () => {
                     }
                 />
                 <Route
-                    path='/my-bookings'
+                    path='/bookings'
                     element={
                         <ProtectedRoute accessBy='authorized'>
                             <Layout>
-                                <MyBookings />
+                                <AllBookings />
                             </Layout>
                         </ProtectedRoute>
                     }
