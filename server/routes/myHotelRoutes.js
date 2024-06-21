@@ -3,7 +3,7 @@ const { upload } = require("../middlewares/uploadImage")
 const { isAdminLoggedIn } = require("../middlewares/auth")
 const { validateAddHotel } = require("../middlewares/validation")
 const { runValidation } = require("../middlewares")
-const { handleAddHotel, handleGetHotels, handleGetSingleHotel, handleUpdateHotel } = require("../controllers/myHotelController")
+const { handleAddHotel, handleGetHotels, handleGetSingleHotel, handleUpdateHotel, handleDeleteHotel } = require("../controllers/myHotelController")
 const router = express.Router()
 
 // add hotel
@@ -17,5 +17,8 @@ router.get("/:id", isAdminLoggedIn, handleGetSingleHotel)
 
 // update hotel
 router.put("/:id", upload.array("imageFiles", 6), isAdminLoggedIn, handleUpdateHotel)
+
+// delete hotel
+router.delete("/:id", isAdminLoggedIn, handleDeleteHotel)
 
 module.exports = router

@@ -27,6 +27,32 @@ const MyHotels = () => {
         }
     }
 
+    const handleDeleteHotel = async (id) => {
+        const isConfirmed = window.confirm(
+            "Are you sure you want to delete this hotel?"
+        )
+
+        if (isConfirmed) {
+            try {
+                const res = await axios.delete(
+                    `${import.meta.env.VITE_SERVER_URL}/api/v1/my-hotels/${id}`,
+                    { withCredentials: true }
+                )
+
+                if (res?.data?.success) {
+                    showToast(res?.data?.message, "success")
+                    window.location.reload()
+                }
+            } catch (error) {
+                if (error?.response?.status === 405) {
+                    showToast(error?.response?.data?.message, "error")
+                } else {
+                    showToast("something went wrong", "error")
+                }
+            }
+        }
+    }
+
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -95,12 +121,20 @@ const MyHotels = () => {
                             </div>
                         </div>
                         <span className='flex justify-end'>
-                            <Link
-                                to={`/admin/edit-hotel/${hotel._id}`}
-                                className='flex bg-[#003580] text-white text-xl font-bold p-2 hover:bg-blue-800'
-                            >
-                                View Details
-                            </Link>
+                            <div className='flex gap-1'>
+                                <button
+                                    onClick={() => handleDeleteHotel(hotel._id)}
+                                    className='flex bg-red-600 text-white text-xl font-bold p-2 hover:bg-red-500 flex-1 rounded-md'
+                                >
+                                    Delete
+                                </button>
+                                <Link
+                                    to={`/admin/edit-hotel/${hotel._id}`}
+                                    className='flex bg-[#003580] text-white text-xl font-bold p-2 hover:bg-blue-800 flex-1 rounded-md'
+                                >
+                                    Details
+                                </Link>
+                            </div>
                         </span>
                     </div>
                 ))}

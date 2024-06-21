@@ -156,7 +156,7 @@ const deleteRoom = async (roomId, userId) => {
             { session }
         );
 
-        await bookingModel.findOneAndDelete({ roomId }).session(session);
+        await bookingModel.deleteMany({ roomId }).session(session);
 
         const deletedRoom = await roomModel.findOneAndDelete({
             _id: roomId,

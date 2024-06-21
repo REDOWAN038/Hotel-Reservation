@@ -7,7 +7,7 @@ const { constructQuery } = require("../handler/constructQuery")
 // get hotels
 const getHotels = async () => {
     try {
-        const hotels = await hotelModel.find().sort({ updatedAt: -1 })
+        const hotels = await hotelModel.find({ availableRooms: { $gte: 1 } }).sort({ updatedAt: -1 });
         return hotels
     } catch (error) {
         throw error

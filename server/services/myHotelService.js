@@ -1,9 +1,12 @@
 const createError = require("http-errors")
+const mongoose = require('mongoose');
 
 const userModel = require("../models/userModel")
 const hotelModel = require("../models/hotelModel")
 const { cloudFolder } = require("../src/secret")
 const { uploadToCloudinary } = require("../handler/uploadToCloudinary")
+const bookingModel = require("../models/bookingModel")
+const roomModel = require("../models/roomModel")
 
 // add hotel
 const addHotel = async (newHotel, imageFiles, userId) => {
@@ -89,9 +92,43 @@ const updateHotel = async (hotelId, updatedHotel, imageFiles, userId) => {
     }
 }
 
+const deleteHotel = async (hotelId, userId) => {
+    const session = await mongoose.startSession();
+    session.startTransaction();
+    try {
+        const hotel = await hotelModel.findOne({
+            _id: hotelId,
+            owner: userId
+        }).session(session)
+
+        if (!hotel) {
+            throw createError(404, "hotel not found")
+        }
+
+        if (hotel.rooms.length !== hotel.availableRooms) {
+            throw createError(405, "some rooms are currently booked");
+        }
+
+        await bookingModel.deleteMany({ hotelId }).session(session);
+        await roomModel.deleteMany({ hotelId }).session(session);
+        await hotelModel.deleteOne({
+            _id: hotelId,
+            owner: userId
+        }).session(session);
+
+        await session.commitTransaction();
+    } catch (error) {
+        await session.abortTransaction();
+        throw error;
+    } finally {
+        session.endSession();
+    }
+}
+
 module.exports = {
     addHotel,
     getHotels,
     getSingleHotel,
-    updateHotel
+    updateHotel,
+    deleteHotel
 }
