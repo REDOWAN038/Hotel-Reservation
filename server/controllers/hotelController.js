@@ -1,5 +1,5 @@
 const { successResponse } = require("../handler/responseHandler");
-const { getSearchHotels, getHotel, hotelBookingPaymentIntent, bookingHotel, getHotels } = require("../services/hotelService");
+const { getSearchHotels, getHotel, getHotels } = require("../services/hotelService");
 
 // get search hotels
 const handleGetSearchHotels = async (req, res, next) => {
@@ -36,40 +36,6 @@ const handleGetHotel = async (req, res, next) => {
     }
 }
 
-// hotel booking payment intent
-const handleHotelBookingPaymentIntent = async (req, res, next) => {
-    try {
-        const hotelId = req.params.id
-        const { numberOfNights } = req.body
-        const { paymentIntentId, clientSecret, totalCost } = await hotelBookingPaymentIntent(hotelId, req.user, numberOfNights)
-        return successResponse(res, {
-            statusCode: 200,
-            message: "hotel booking payment intent successful",
-            payload: {
-                paymentIntentId,
-                clientSecret,
-                totalCost
-            }
-        })
-    } catch (error) {
-        next(error)
-    }
-}
-
-// booking hotel
-const handleBookingHotel = async (req, res, next) => {
-    try {
-        const hotelId = req.params.id
-        await bookingHotel(hotelId, req.user, req.body)
-        return successResponse(res, {
-            statusCode: 200,
-            message: "hotel booking successful",
-        })
-    } catch (error) {
-        next(error)
-    }
-}
-
 const handleGetHotels = async (req, res, next) => {
     try {
 
@@ -89,7 +55,5 @@ const handleGetHotels = async (req, res, next) => {
 module.exports = {
     handleGetSearchHotels,
     handleGetHotel,
-    handleHotelBookingPaymentIntent,
-    handleBookingHotel,
     handleGetHotels
 }

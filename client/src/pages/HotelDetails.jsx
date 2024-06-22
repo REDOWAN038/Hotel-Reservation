@@ -4,9 +4,12 @@ import axios from "axios"
 import { showToast } from "../utils/toast"
 import { useEffect, useState } from "react"
 import GuestInfoForm from "../forms/GuestInfoForm/GuestInfoForm"
+import { useSelector } from "react-redux"
+import { selectAll } from "../features/search/selector"
 
 const HotelDetails = () => {
     const { id } = useParams()
+    const search = useSelector(selectAll)
     const [hotelData, setHotelData] = useState([])
 
     const getHotelDetails = async () => {
@@ -105,7 +108,9 @@ const HotelDetails = () => {
                     <tbody>
                         {hotelData?.rooms?.map(
                             (room, idx) =>
-                                room.availability && (
+                                room.availability &&
+                                room.adultCount >= search.adultCount &&
+                                room.childCount >= search.childCount && (
                                     <tr key={idx} className='border-t'>
                                         <td className='px-4 py-2 text-center'>
                                             {room.type}

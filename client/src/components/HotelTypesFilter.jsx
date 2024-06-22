@@ -10,8 +10,8 @@ const HotelTypesFilter = () => {
     const handleChange = (e) => {
         const hotelType = e.target.value
         const updatedHotelTypes = e.target.checked
-            ? [...selectHotelTypes, hotelType]
-            : selectHotelTypes.filter(
+            ? [...selectedHotelTypes, hotelType]
+            : selectedHotelTypes.filter(
                   (prevHotelType) => prevHotelType !== hotelType
               )
         dispatch(setHotelTypes(updatedHotelTypes))

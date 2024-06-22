@@ -1,9 +1,9 @@
 const constructQuery = (queryParams) => {
     let constructedQuery = {};
 
-    constructedQuery.availableRooms = {
-        $gte: 1,
-    };
+    // constructedQuery.availableRooms = {
+    //     $gte: 1,
+    // };
 
     if (queryParams.destination) {
         constructedQuery.$or = [
@@ -30,8 +30,8 @@ const constructQuery = (queryParams) => {
 
     if (queryParams.stars) {
         const starRatings = Array.isArray(queryParams.stars)
-            ? queryParams.stars.map((star) => parseInt(star))
-            : parseInt(queryParams.stars);
+            ? queryParams.stars.map((star) => parseInt(star, 10))
+            : [parseInt(queryParams.stars, 10)];
 
         constructedQuery.starRating = { $in: starRatings };
     }

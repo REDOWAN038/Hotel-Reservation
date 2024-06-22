@@ -40,7 +40,7 @@ const SearchHotelsCard = ({ hotel }) => {
                 <div className='grid grid-cols-2 items-end whitespace-nowrap'>
                     <div className='flex flex-col items-start gap-1'>
                         <span className='text-base font-bold text-red-600'>
-                            {hotel.availableRooms} rooms available
+                            {hotel.matchingRoomsCount} rooms available
                         </span>
                         <div className='flex gap-1 items-center'>
                             {hotel.facilities
