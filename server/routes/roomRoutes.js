@@ -4,7 +4,7 @@ const { handleGetSingleRoom, handleRoomBookingPaymentIntent, handleBookingRoom }
 const router = express.Router()
 
 // get single room
-router.get("/:roomId", handleGetSingleRoom)
+router.get("/:id", handleGetSingleRoom)
 
 // room booking payment intent
 router.post("/booking/payment-intent/:id", isLoggedIn, handleRoomBookingPaymentIntent)

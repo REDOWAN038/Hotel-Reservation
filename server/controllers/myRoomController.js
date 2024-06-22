@@ -36,7 +36,7 @@ const handleGetAllRooms = async (req, res, next) => {
 // get single room
 const handleGetSingleRoom = async (req, res, next) => {
     try {
-        const room = await getSingleRoom(req.params.roomId, req.admin)
+        const room = await getSingleRoom(req.params.id, req.admin)
         return successResponse(res, {
             statusCode: 200,
             message: "single room returned successfully",
@@ -52,7 +52,7 @@ const handleGetSingleRoom = async (req, res, next) => {
 // update hotel
 const handleUpdateRoom = async (req, res, next) => {
     try {
-        const room = await updateRoom(req.params.roomId, req.body, req.admin)
+        const room = await updateRoom(req.params.id, req.body, req.admin)
         return successResponse(res, {
             statusCode: 201,
             message: "room updated successfully",
@@ -68,7 +68,7 @@ const handleUpdateRoom = async (req, res, next) => {
 // delete room
 const handleDeleteRoom = async (req, res, next) => {
     try {
-        await deleteRoom(req.params.roomId, req.admin)
+        await deleteRoom(req.params.id, req.admin)
         return successResponse(res, {
             statusCode: 200,
             message: "room deleted successfully",

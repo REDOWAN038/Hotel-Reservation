@@ -5,7 +5,7 @@ const { getSingleRoom, roomBookingPaymentIntent, bookingRoom } = require("../ser
 // get single room
 const handleGetSingleRoom = async (req, res, next) => {
     try {
-        const room = await getSingleRoom(req.params.roomId)
+        const room = await getSingleRoom(req.params.id)
         return successResponse(res, {
             statusCode: 200,
             message: "single room returned successfully",

@@ -12,12 +12,12 @@ router.post("/", isAdminLoggedIn, validateCreateRoom, runValidation, handleCreat
 router.get("/", isAdminLoggedIn, handleGetAllRooms)
 
 // get single hotel room
-router.get("/:roomId", isAdminLoggedIn, handleGetSingleRoom)
+router.get("/:id", isAdminLoggedIn, handleGetSingleRoom)
 
 // delete room
-router.delete("/:roomId", isAdminLoggedIn, handleDeleteRoom)
+router.delete("/:id", isAdminLoggedIn, handleDeleteRoom)
 
 // update room
-router.put("/:roomId", isAdminLoggedIn, handleUpdateRoom)
+router.put("/:id", isAdminLoggedIn, handleUpdateRoom)
 
 module.exports = router
