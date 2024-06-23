@@ -65,7 +65,7 @@ const SearchHotelsCard = ({ hotel }) => {
                         </span>
                         <Link
                             to={`/detail/${hotel._id}`}
-                            className='bg-[#003580] text-white h-full p-2 font-bold text-sm md:text-base lg:text-base max-w-fit hover:bg-blue-800'
+                            className='bg-[#003580] text-white h-full p-2 font-bold text-sm md:text-base max-w-fit hover:bg-blue-800'
                         >
                             View More
                         </Link>

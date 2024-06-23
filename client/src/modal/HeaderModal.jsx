@@ -3,7 +3,7 @@ import { FiX } from "react-icons/fi"
 import { Link } from "react-router-dom"
 import SignOutButton from "../components/SignOutButton"
 
-const HeaderModal = ({ isOpen, toggleModal }) => {
+const HeaderModal = ({ isOpen, toggleModal, isLoggedIn }) => {
     return (
         <Transition
             show={isOpen}
@@ -24,24 +24,50 @@ const HeaderModal = ({ isOpen, toggleModal }) => {
                         </button>
                     </div>
                     <div className='flex flex-col space-y-4'>
-                        <Link
-                            to='/bookings'
-                            className='text-gray-800'
-                            onClick={toggleModal}
-                        >
-                            Bookings
-                        </Link>
-                        <a
-                            className='flex items-center text-white px-3 font-bold hover:bg-blue-700 hover:rounded-md'
-                            href={`${
-                                import.meta.env.VITE_ADMIN_URL
-                            }/admin/my-hotels`}
-                            target='_blank'
-                            rel='noopener noreferrer'
-                        >
-                            List Your Hotels
-                        </a>
-                        <SignOutButton />
+                        {isLoggedIn ? (
+                            <>
+                                <Link
+                                    to='/bookings'
+                                    className='text-gray-800'
+                                    onClick={toggleModal}
+                                >
+                                    Bookings
+                                </Link>
+                                <a
+                                    className='text-gray-800'
+                                    href={`${
+                                        import.meta.env.VITE_ADMIN_URL
+                                    }/admin/my-hotels`}
+                                    onClick={toggleModal}
+                                    target='_blank'
+                                    rel='noopener noreferrer'
+                                >
+                                    List Your Hotels
+                                </a>
+                                <SignOutButton />
+                            </>
+                        ) : (
+                            <>
+                                <a
+                                    className='text-gray-800'
+                                    href={`${
+                                        import.meta.env.VITE_ADMIN_URL
+                                    }/admin/my-hotels`}
+                                    onClick={toggleModal}
+                                    target='_blank'
+                                    rel='noopener noreferrer'
+                                >
+                                    List Your Hotels
+                                </a>
+                                <Link
+                                    to='/signin'
+                                    onClick={toggleModal}
+                                    className='flex bg-white items-center justify-center text-blue-600 px-3 font-bold hover:bg-gray-100 rounded-sm'
+                                >
+                                    Sign In
+                                </Link>
+                            </>
+                        )}
                     </div>
                 </div>
             </div>

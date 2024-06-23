@@ -159,13 +159,13 @@ const MyRooms = () => {
                             <div className='flex gap-1'>
                                 <button
                                     onClick={() => handleDeleteRoom(room._id)}
-                                    className='flex bg-red-600 text-white text-xl font-bold p-2 hover:bg-red-500 flex-1 rounded-md'
+                                    className='flex bg-red-600 text-white text-sm md:text-base font-bold p-2 hover:bg-red-500 flex-1 rounded-md'
                                 >
                                     Delete
                                 </button>
                                 <Link
                                     to={`/admin/edit-room/${room._id}`}
-                                    className='flex bg-[#003580] text-white text-xl font-bold p-2 hover:bg-blue-800 flex-1 rounded-md'
+                                    className='flex bg-[#003580] text-white text-sm md:text-base font-bold p-2 hover:bg-blue-800 flex-1 rounded-md'
                                 >
                                     Details
                                 </Link>

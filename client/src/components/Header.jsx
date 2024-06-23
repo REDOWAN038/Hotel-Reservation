@@ -52,18 +52,9 @@ const Header = () => {
                     )}
                 </span>
                 <span className='lg:hidden flex items-center'>
-                    {isLoggedIn ? (
-                        <button onClick={toggleModal} className='text-white'>
-                            <FiMenu className='h-6 w-6' />
-                        </button>
-                    ) : (
-                        <Link
-                            to='/signin'
-                            className='flex bg-white items-center text-blue-600 px-3 font-bold hover:bg-gray-100 rounded-sm'
-                        >
-                            Sign In
-                        </Link>
-                    )}
+                    <button onClick={toggleModal} className='text-white'>
+                        <FiMenu className='h-6 w-6' />
+                    </button>
                 </span>
             </div>
             <HeaderModal

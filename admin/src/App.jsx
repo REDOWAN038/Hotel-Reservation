@@ -9,6 +9,7 @@ import MyBookings from "./pages/MyBookings"
 import CreateRoom from "./pages/CreateRoom"
 import MyRooms from "./pages/MyRooms"
 import EditRoom from "./pages/EditRoom"
+import SignUp from "./pages/SignUp"
 
 const App = () => {
     return (
@@ -20,6 +21,16 @@ const App = () => {
                         <ProtectedRoute accessBy='unauthorized'>
                             <Layout>
                                 <SignIn />
+                            </Layout>
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path='/admin/signup'
+                    element={
+                        <ProtectedRoute accessBy='unauthorized'>
+                            <Layout>
+                                <SignUp />
                             </Layout>
                         </ProtectedRoute>
                     }

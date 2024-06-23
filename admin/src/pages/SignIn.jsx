@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form"
 import axios from "axios"
-import { useLocation, useNavigate } from "react-router-dom"
+import { Link, useLocation, useNavigate } from "react-router-dom"
 import { showToast } from "../utils/toast"
 import { useDispatch } from "react-redux"
 import { login } from "../features/auth/authSlice"
@@ -75,6 +75,15 @@ const SignIn = () => {
                 )}
             </label>
             <div className='flex flex-col md:flex-row gap-5'>
+                <span className='text-gray-700 text-sm font-bold flex-1'>
+                    Not have an account?
+                    <Link
+                        to='/admin/signup'
+                        className='hover:text-blue-600 underline'
+                    >
+                        Sign Up
+                    </Link>
+                </span>
                 <span>
                     <button
                         type='submit'
